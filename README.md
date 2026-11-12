@@ -3,9 +3,8 @@
 
 **Production Application:** Next.js 14 (React 18, TypeScript, Tailwind CSS, Recharts, Lucide React)  
 **Data Science & Synthesis:** Python 3.10+ (NumPy, Pandas, OpenPyXL, PyTest)  
-**Deployment Target:** Vercel  
-**Reference Inspiration:** [ENERGYDB – Campus Energy Analytics](https://github.com/shridharkale/ENERGYDB) by Shridhar Kale ([`shridharkale`](https://github.com/shridharkale))  
-**Academic Evaluator:** Professor Sayed Faizan Qaser (100-Point Engineering Assessment)
+**Deployment Target:** Vercel   
+
 
 ---
 
