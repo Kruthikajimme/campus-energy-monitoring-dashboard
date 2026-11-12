@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block title %}About Project - Campus Energy Monitoring{% endblock %}
+{% block page_title %}About Campus Energy Analytics System{% endblock %}
+{% block page_subtitle %}System architecture, analytical methodologies, technology stack, and academic acknowledgements{% endblock %}
+
+{% block content %}
+
+<!-- Executive Overview Card -->
+<div class="card p-4 mb-4">
+  <div class="row align-items-center">
+    <div class="col-lg-8">
+      <span class="badge bg-primary text-white mb-2 px-3 py-1 fw-bold">ACADEMIC & ENTERPRISE ANALYTICS</span>
+      <h3 class="fw-bold text-navy mb-2">Campus Energy Consumption Monitoring & Analytics Dashboard</h3>
+      <p class="text-secondary leading-relaxed mb-3">
+        Modern educational institutions operate complex electrical infrastructure spanning lecture halls, high-performance computing centers, experimental research laboratories, student residences, and dining commons.
+        This web-based analytics platform provides university facility administrators and sustainability committees with real-time visibility into building-level energy intensity, peak demand charges, carbon emissions, and operational anomalies.
+      </p>
+      <div class="d-flex flex-wrap gap-2">
+        <span class="badge bg-light text-dark border"><i class="bi bi-cpu text-primary"></i> Python 3.12</span>
+        <span class="badge bg-light text-dark border"><i class="bi bi-braces text-success"></i> Flask Microframework</span>
+        <span class="badge bg-light text-dark border"><i class="bi bi-table text-info"></i> Pandas & NumPy</span>
+        <span class="badge bg-light text-dark border"><i class="bi bi-pie-chart text-warning"></i> Chart.js 4</span>
+        <span class="badge bg-light text-dark border"><i class="bi bi-file-earmark-excel text-success"></i> OpenPyXL</span>
+        <span class="badge bg-light text-dark border"><i class="bi bi-bootstrap text-purple"></i> Bootstrap 5.3</span>
+      </div>
+    </div>
+    <div class="col-lg-4 text-center mt-3 mt-lg-0">
+      <div class="p-3 bg-light rounded border text-start">
+        <h6 class="fw-bold text-dark mb-2"><i class="bi bi-check-all text-success"></i> Core Project Objectives</h6>
+        <ul class="list-unstyled small text-muted mb-0">
+          <li class="mb-1">&bull; Monitor multi-facility energy telemetry</li>
+          <li class="mb-1">&bull; Identify highest and lowest consumers</li>
+          <li class="mb-1">&bull; Pinpoint campus peak power demand</li>
+          <li class="mb-1">&bull; Detect statistical consumption anomalies</li>
+          <li class="mb-1">&bull; Uncover after-hours electricity leakage</li>
+          <li>&bull; Support data-driven green campus initiatives</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Architecture & Pipeline Modules -->
+<div class="card mb-4">
+  <div class="card-header-clean">
+    <div>
+      <h3><i class="bi bi-diagram-3 text-emerald"></i> Modular Application Architecture</h3>
+      <span class="card-subtitle">Separation of concerns across data simulation, cleaning, analytics, and reporting</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row g-3">
+      <div class="col-md-4">
+        <div class="p-3 bg-light rounded border h-100">
+          <h5 class="fs-6 fw-bold text-dark mb-1">1. Synthetic Generator & Cleaning</h5>
+          <p class="small text-muted mb-2">
+            <code>modules/data_generator.py</code> & <code>modules/data_cleaning.py</code>
+          </p>
+          <p class="small text-secondary mb-0">
+            Generates reproducible 90-day hourly telemetry for 7 campus facilities with synthetic noise (missing fields, duplicates, negative values, and sensor spikes). Cleans and imputes using hourly medians while logging audit decisions to JSON.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="p-3 bg-light rounded border h-100">
+          <h5 class="fs-6 fw-bold text-dark mb-1">2. Analytics & Anomaly Detection</h5>
+          <p class="small text-muted mb-2">
+            <code>modules/analytics.py</code> & <code>modules/anomaly_detection.py</code>
+          </p>
+          <p class="small text-secondary mb-0">
+            Computes multi-dimensional slice-and-dice aggregations, Pearson correlations between occupancy and load, and statistical anomaly detection using Interquartile Range (IQR) and rolling 6-hour moving Z-scores.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="p-3 bg-light rounded border h-100">
+          <h5 class="fs-6 fw-bold text-dark mb-1">3. Automated Insights & Excel Reports</h5>
+          <p class="small text-muted mb-2">
+            <code>modules/insights.py</code> & <code>modules/report_generator.py</code>
+          </p>
+          <p class="small text-secondary mb-0">
+            Synthesizes key findings and energy conservation measures (peak shaving, chiller setbacks, solar expansion). Generates 5-sheet corporate-grade Excel workbooks with embedded native charts via OpenPyXL.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- References & Acknowledgements (Section 1) -->
+<div class="card p-4 mb-4 border-start border-4 border-primary">
+  <div class="d-flex align-items-center gap-2 mb-2">
+    <i class="bi bi-github fs-3 text-dark"></i>
+    <h4 class="fs-5 fw-bold text-navy mb-0">References & Acknowledgements</h4>
+  </div>
+  <p class="text-muted small mb-3">
+    This project was conceived and designed with inspiration from existing open-source campus energy telemetry architectures, in particular:
+  </p>
+
+  <div class="p-3 bg-light rounded border mb-3">
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+      <div>
+        <h6 class="fw-bold mb-1">ENERGYDB – Campus Energy Analytics</h6>
+        <span class="small text-muted">Author / Maintainer: <strong>Shridhar Kale</strong> (GitHub: <code>shridharkale</code>)</span>
+        <div class="small text-muted mt-1">Repository: <a href="https://github.com/shridharkale/ENERGYDB" target="_blank" rel="noopener">https://github.com/shridharkale/ENERGYDB</a></div>
+      </div>
+      <a href="https://github.com/shridharkale/ENERGYDB" target="_blank" rel="noopener" class="btn btn-outline-dark btn-sm">
+        <i class="bi bi-box-arrow-up-right me-1"></i> View Reference Repo
+      </a>
+    </div>
+  </div>
+
+  <p class="small text-muted mb-0">
+    <strong>Original Implementation Statement:</strong> In accordance with academic integrity and ethical engineering standards, our codebase represents an entirely original full-stack implementation. Our system features an independently developed synthetic dataset generation engine, custom Pandas cleaning and imputation pipeline, dual-statistical anomaly detector (IQR & rolling Z-score), modern responsive dashboard theme, and dynamic OpenPyXL Excel reporting engine.
+  </p>
+</div>
+
+<!-- Simulated Data Notice (Section 4 & 17) -->
+<div class="alert alert-warning border-0 d-flex align-items-center gap-3">
+  <i class="bi bi-exclamation-triangle-fill fs-3 text-warning"></i>
+  <div class="small">
+    <strong>SIMULATED DATASET NOTICE:</strong>
+    All electricity readings, peak power demand values, voltage metrics, and ambient temperatures displayed across this application and exported reports are synthetically generated using a fixed random seed (42) for academic demonstration and software prototyping. They should not be interpreted as physical hardware measurements of any real-world university facility.
+  </div>
+</div>
+
+{% endblock %}
+

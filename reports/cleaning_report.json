@@ -1,0 +1,64 @@
+{
+    "generated_at": "2026-11-12 13:42:35",
+    "original_record_count": 15180,
+    "missing_values_detected": {
+        "units_kwh": 24,
+        "voltage": 26,
+        "occupancy": 25
+    },
+    "duplicate_records_removed": 62,
+    "invalid_timestamps_removed": 6,
+    "negative_readings_corrected_or_removed": 30,
+    "voltage_anomalies_flagged": 30,
+    "standardized_building_names": 18,
+    "outliers_detected": 34,
+    "outliers_by_building": {
+        "Academic Block": 5,
+        "Library": 2,
+        "Computer Science Block": 6,
+        "Laboratory Block": 5,
+        "Boys Hostel": 5,
+        "Girls Hostel": 8,
+        "Canteen": 3
+    },
+    "records_removed_total": 68,
+    "records_corrected_total": 136,
+    "final_cleaned_record_count": 15112,
+    "cleaning_decisions": [
+        {
+            "step": "Duplicate Removal",
+            "action": "Removed 62 duplicate records matching identical (building, timestamp) tuples.",
+            "rationale": "Energy meters emit exactly one cumulative interval reading per hour. Redundant rows skew sum KPIs."
+        },
+        {
+            "step": "Timestamp Validation",
+            "action": "Dropped 6 records containing unparseable or corrupted timestamp strings.",
+            "rationale": "Chronological integrity is mandatory for temporal trend analysis and peak hour detection."
+        },
+        {
+            "step": "Building Name Standardization",
+            "action": "Normalized 18 building names with inconsistent casing or extra whitespace.",
+            "rationale": "Ensures clean group-by aggregations and prevents fragmented building cards."
+        },
+        {
+            "step": "Negative Reading Correction",
+            "action": "Inverted signs for 30 negative consumption values (sensor polarity errors).",
+            "rationale": "Submeters occasionally invert current transformer (CT) polarity during maintenance."
+        },
+        {
+            "step": "Missing Consumption Imputation",
+            "action": "Imputed 24 missing units_kwh values using building-specific hourly median.",
+            "rationale": "Median preserves diurnal patterns without introducing artificial spikes."
+        },
+        {
+            "step": "Voltage Correction",
+            "action": "Reset 30 anomalous voltage readings (<180V or >270V) to nominal 230V.",
+            "rationale": "Campus line frequency and voltage regulators maintain 230V \u00b1 10% under standard operation."
+        },
+        {
+            "step": "IQR Outlier Treatment",
+            "action": "Identified 34 extreme statistical outliers (>2.5x IQR) and capped them to the 99th percentile.",
+            "rationale": "Prevents telemetry dropouts/overflows (e.g., 99999 kWh) from distorting university budget projections."
+        }
+    ]
+}

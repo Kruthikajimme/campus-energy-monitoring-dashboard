@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+
+{% block title %}Data Management - Campus Energy Monitoring{% endblock %}
+{% block page_title %}Telemetry Data Management & Operations{% endblock %}
+{% block page_subtitle %}Dataset ingestion, CSV schema validation, manual telemetry injection, and raw/cleaned repository downloads{% endblock %}
+
+{% block content %}
+
+<!-- Quick Downloads & Overview Row -->
+<div class="row g-4 mb-4">
+  <div class="col-md-6">
+    <div class="card h-100 p-3">
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <h5 class="fs-6 fw-bold mb-0 text-navy"><i class="bi bi-cloud-arrow-down-fill text-success me-2"></i> Cleaned Energy Telemetry</h5>
+        <span class="badge bg-success-subtle text-success border border-success-subtle">Normalized</span>
+      </div>
+      <p class="small text-muted mb-3">
+        Preprocessed, standardized, and imputed campus electricity records with validated timestamps, corrected power factors, and capped sensor dropouts.
+      </p>
+      <div class="mt-auto">
+        <a href="{{ url_for('download_cleaned_csv') }}" class="btn btn-primary-emerald btn-sm">
+          <i class="bi bi-download"></i> Download Cleaned CSV
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card h-100 p-3">
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <h5 class="fs-6 fw-bold mb-0 text-navy"><i class="bi bi-file-earmark-code text-secondary me-2"></i> Raw Simulated Dataset</h5>
+        <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle">Unfiltered</span>
+      </div>
+      <p class="small text-muted mb-3">
+        Original uncleaned telemetry containing synthetic noisy readings, missing fields, duplicates, and extreme sensor outliers preserved for pipeline auditing.
+      </p>
+      <div class="mt-auto">
+        <a href="{{ url_for('download_raw_csv') }}" class="btn btn-outline-secondary btn-sm">
+          <i class="bi bi-download"></i> Download Original Raw CSV
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Forms Row: CSV Upload & Manual Entry -->
+<div class="row g-4 mb-4">
+  <!-- CSV File Upload -->
+  <div class="col-lg-6">
+    <div class="card h-100">
+      <div class="card-header-clean">
+        <div>
+          <h3><i class="bi bi-upload text-primary"></i> Ingest Energy CSV File</h3>
+          <span class="card-subtitle">Validates column schemas, flags duplicates, runs cleaning pipeline</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <form id="uploadCsvForm" enctype="multipart/form-data">
+          <div class="mb-3">
+            <label class="form-label small fw-bold" for="csvFileInput">Select CSV File</label>
+            <input class="form-control form-control-sm" type="file" id="csvFileInput" name="file" accept=".csv" required>
+            <small class="text-muted d-block mt-1">
+              Required headers: <code>timestamp</code>, <code>building</code>, <code>units_kwh</code> (optional: <code>peak_kw</code>, <code>voltage</code>, <code>occupancy</code>, <code>source</code>).
+            </small>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small fw-bold">Ingestion Mode</label>
+            <div class="d-flex gap-3">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="mode" id="modeAppend" value="append" checked>
+                <label class="form-check-label small" for="modeAppend">
+                  <strong>Append</strong> (Merge & deduplicate)
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="mode" id="modeReplace" value="replace">
+                <label class="form-check-label small" for="modeReplace">
+                  <strong>Replace</strong> (Overwrite active dataset)
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary-emerald btn-sm w-100">
+            <i class="bi bi-cloud-arrow-up"></i> Upload and Process CSV
+          </button>
+
+          <div id="uploadFeedback" class="d-none"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Manual Record Injection Form -->
+  <div class="col-lg-6">
+    <div class="card h-100">
+      <div class="card-header-clean">
+        <div>
+          <h3><i class="bi bi-pencil-square text-info"></i> Add Single Reading Manually</h3>
+          <span class="card-subtitle">Simulate real-time manual meter logging or technician entry</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <form id="manualEntryForm">
+          <div class="row g-2 mb-2">
+            <div class="col-md-6">
+              <label class="form-label small fw-bold">Facility</label>
+              <select class="form-select form-select-sm" name="building" required>
+                {% for b in all_buildings %}
+                  <option value="{{ b }}">{{ b }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small fw-bold">Timestamp</label>
+              <input type="text" class="form-control form-control-sm" name="timestamp" placeholder="YYYY-MM-DD HH:MM:SS" value="{{ current_year }}-11-12 14:00:00">
+            </div>
+          </div>
+
+          <div class="row g-2 mb-2">
+            <div class="col-md-4">
+              <label class="form-label small fw-bold">Energy (kWh)</label>
+              <input type="number" step="0.1" class="form-control form-control-sm" name="units_kwh" placeholder="e.g. 115.4" required>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label small fw-bold">Peak Demand (kW)</label>
+              <input type="number" step="0.1" class="form-control form-control-sm" name="peak_kw" placeholder="e.g. 145.0">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label small fw-bold">Voltage (V)</label>
+              <input type="number" step="0.1" class="form-control form-control-sm" name="voltage" value="230.0">
+            </div>
+          </div>
+
+          <div class="row g-2 mb-3">
+            <div class="col-md-4">
+              <label class="form-label small fw-bold">Occupancy</label>
+              <input type="number" class="form-control form-control-sm" name="occupancy" value="120">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label small fw-bold">Power Source</label>
+              <select class="form-select form-select-sm" name="source">
+                <option value="Grid" selected>Grid</option>
+                <option value="Solar">Solar</option>
+                <option value="Generator">Generator</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label small fw-bold">Day Type</label>
+              <select class="form-select form-select-sm" name="day_type">
+                <option value="Weekday" selected>Weekday</option>
+                <option value="Weekend">Weekend</option>
+                <option value="Holiday">Holiday</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-outline-navy btn-sm w-100">
+            <i class="bi bi-plus-lg"></i> Append Manual Energy Record
+          </button>
+
+          <div id="manualEntryFeedback" class="d-none"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Interactive Dataset Records Explorer -->
+<div class="card">
+  <div class="card-header-clean">
+    <div>
+      <h3><i class="bi bi-database text-primary"></i> Interactive Telemetry Table Explorer</h3>
+      <span class="card-subtitle" id="tablePageInfo">Loading records...</span>
+    </div>
+    <div class="d-flex align-items-center gap-2">
+      <select class="form-select form-select-sm" id="tableDatasetView" style="width: 170px;">
+        <option value="cleaned" selected>Cleaned Dataset</option>
+        <option value="raw">Raw Dataset (Noisy)</option>
+      </select>
+      <button class="btn btn-outline-secondary btn-sm" id="btnTablePrev" onclick="prevTablePage()" disabled>&larr; Prev</button>
+      <button class="btn btn-outline-secondary btn-sm" id="btnTableNext" onclick="nextTablePage()">Next &rarr;</button>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="custom-table table-hover">
+      <thead>
+        <tr>
+          <th>Timestamp</th>
+          <th>Building</th>
+          <th>Meter ID</th>
+          <th>Energy (kWh)</th>
+          <th>Peak (kW)</th>
+          <th>Voltage</th>
+          <th>Occupancy</th>
+          <th>Source</th>
+          <th>Ambient Temp</th>
+          <th>Day Type</th>
+        </tr>
+      </thead>
+      <tbody id="previewTableBody">
+        <tr>
+          <td colspan="10" class="text-center py-4 text-muted">Loading telemetry rows...</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}
+

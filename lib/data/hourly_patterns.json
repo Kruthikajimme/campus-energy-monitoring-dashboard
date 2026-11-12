@@ -1,0 +1,242 @@
+[
+  {
+    "hour": 0,
+    "label": "00:00",
+    "averageKwh": 49.4,
+    "weekdayKwh": 50.0,
+    "weekendKwh": 48.2,
+    "peakKw": 62.5,
+    "occupancy": 138.0,
+    "temperature": 23.0
+  },
+  {
+    "hour": 1,
+    "label": "01:00",
+    "averageKwh": 49.3,
+    "weekdayKwh": 49.2,
+    "weekendKwh": 49.4,
+    "peakKw": 62.7,
+    "occupancy": 138.0,
+    "temperature": 22.4
+  },
+  {
+    "hour": 2,
+    "label": "02:00",
+    "averageKwh": 49.3,
+    "weekdayKwh": 49.3,
+    "weekendKwh": 49.2,
+    "peakKw": 62.5,
+    "occupancy": 139.0,
+    "temperature": 22.1
+  },
+  {
+    "hour": 3,
+    "label": "03:00",
+    "averageKwh": 48.8,
+    "weekdayKwh": 49.0,
+    "weekendKwh": 48.6,
+    "peakKw": 61.8,
+    "occupancy": 139.0,
+    "temperature": 22.2
+  },
+  {
+    "hour": 4,
+    "label": "04:00",
+    "averageKwh": 49.0,
+    "weekdayKwh": 49.1,
+    "weekendKwh": 48.9,
+    "peakKw": 62.1,
+    "occupancy": 138.0,
+    "temperature": 23.1
+  },
+  {
+    "hour": 5,
+    "label": "05:00",
+    "averageKwh": 48.9,
+    "weekdayKwh": 49.4,
+    "weekendKwh": 47.7,
+    "peakKw": 62.0,
+    "occupancy": 138.0,
+    "temperature": 24.2
+  },
+  {
+    "hour": 6,
+    "label": "06:00",
+    "averageKwh": 61.9,
+    "weekdayKwh": 62.4,
+    "weekendKwh": 60.7,
+    "peakKw": 78.2,
+    "occupancy": 127.0,
+    "temperature": 25.6
+  },
+  {
+    "hour": 7,
+    "label": "07:00",
+    "averageKwh": 76.5,
+    "weekdayKwh": 79.7,
+    "weekendKwh": 68.7,
+    "peakKw": 96.6,
+    "occupancy": 172.0,
+    "temperature": 27.4
+  },
+  {
+    "hour": 8,
+    "label": "08:00",
+    "averageKwh": 83.8,
+    "weekdayKwh": 89.3,
+    "weekendKwh": 70.2,
+    "peakKw": 106.4,
+    "occupancy": 258.0,
+    "temperature": 29.2
+  },
+  {
+    "hour": 9,
+    "label": "09:00",
+    "averageKwh": 83.9,
+    "weekdayKwh": 89.5,
+    "weekendKwh": 70.2,
+    "peakKw": 107.0,
+    "occupancy": 225.0,
+    "temperature": 31.0
+  },
+  {
+    "hour": 10,
+    "label": "10:00",
+    "averageKwh": 88.1,
+    "weekdayKwh": 93.5,
+    "weekendKwh": 74.8,
+    "peakKw": 111.2,
+    "occupancy": 236.0,
+    "temperature": 32.7
+  },
+  {
+    "hour": 11,
+    "label": "11:00",
+    "averageKwh": 94.5,
+    "weekdayKwh": 102.1,
+    "weekendKwh": 75.9,
+    "peakKw": 119.6,
+    "occupancy": 256.0,
+    "temperature": 34.1
+  },
+  {
+    "hour": 12,
+    "label": "12:00",
+    "averageKwh": 105.5,
+    "weekdayKwh": 114.8,
+    "weekendKwh": 82.5,
+    "peakKw": 133.5,
+    "occupancy": 293.0,
+    "temperature": 35.2
+  },
+  {
+    "hour": 13,
+    "label": "13:00",
+    "averageKwh": 107.4,
+    "weekdayKwh": 117.1,
+    "weekendKwh": 83.4,
+    "peakKw": 136.6,
+    "occupancy": 299.0,
+    "temperature": 35.9
+  },
+  {
+    "hour": 14,
+    "label": "14:00",
+    "averageKwh": 108.0,
+    "weekdayKwh": 117.4,
+    "weekendKwh": 84.9,
+    "peakKw": 136.5,
+    "occupancy": 300.0,
+    "temperature": 36.2
+  },
+  {
+    "hour": 15,
+    "label": "15:00",
+    "averageKwh": 100.1,
+    "weekdayKwh": 109.2,
+    "weekendKwh": 77.5,
+    "peakKw": 127.0,
+    "occupancy": 271.0,
+    "temperature": 35.9
+  },
+  {
+    "hour": 16,
+    "label": "16:00",
+    "averageKwh": 95.2,
+    "weekdayKwh": 103.0,
+    "weekendKwh": 75.7,
+    "peakKw": 120.6,
+    "occupancy": 257.0,
+    "temperature": 35.2
+  },
+  {
+    "hour": 17,
+    "label": "17:00",
+    "averageKwh": 105.7,
+    "weekdayKwh": 116.4,
+    "weekendKwh": 79.3,
+    "peakKw": 133.9,
+    "occupancy": 337.0,
+    "temperature": 34.1
+  },
+  {
+    "hour": 18,
+    "label": "18:00",
+    "averageKwh": 95.5,
+    "weekdayKwh": 102.4,
+    "weekendKwh": 78.6,
+    "peakKw": 120.9,
+    "occupancy": 300.0,
+    "temperature": 32.6
+  },
+  {
+    "hour": 19,
+    "label": "19:00",
+    "averageKwh": 91.7,
+    "weekdayKwh": 97.6,
+    "weekendKwh": 77.0,
+    "peakKw": 115.8,
+    "occupancy": 253.0,
+    "temperature": 31.0
+  },
+  {
+    "hour": 20,
+    "label": "20:00",
+    "averageKwh": 82.7,
+    "weekdayKwh": 86.3,
+    "weekendKwh": 73.9,
+    "peakKw": 104.6,
+    "occupancy": 234.0,
+    "temperature": 29.2
+  },
+  {
+    "hour": 21,
+    "label": "21:00",
+    "averageKwh": 74.2,
+    "weekdayKwh": 75.8,
+    "weekendKwh": 70.2,
+    "peakKw": 93.9,
+    "occupancy": 189.0,
+    "temperature": 27.4
+  },
+  {
+    "hour": 22,
+    "label": "22:00",
+    "averageKwh": 64.9,
+    "weekdayKwh": 66.0,
+    "weekendKwh": 62.3,
+    "peakKw": 82.3,
+    "occupancy": 153.0,
+    "temperature": 25.6
+  },
+  {
+    "hour": 23,
+    "label": "23:00",
+    "averageKwh": 62.2,
+    "weekdayKwh": 62.6,
+    "weekendKwh": 61.1,
+    "peakKw": 78.5,
+    "occupancy": 134.0,
+    "temperature": 24.1
+  }
+]

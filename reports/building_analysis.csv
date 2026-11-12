@@ -1,0 +1,8 @@
+building,total_kwh,avg_hourly_kwh,max_hourly_kwh,min_hourly_kwh,peak_demand_kw,avg_occupancy,record_count,percentage_share,kwh_per_occupant,rank
+Computer Science Block,252925.41,117.2,377.21,41.16,490.37,200.6,2158,21.41,0.5843,1
+Laboratory Block,201292.69,93.28,266.66,30.17,346.66,83.9,2158,17.04,1.1118,2
+Academic Block,175102.27,81.1,177.15,21.04,231.3,230.2,2159,14.82,0.3523,3
+Boys Hostel,153033.75,70.88,124.99,16.75,162.35,369.8,2159,12.95,0.1917,4
+Girls Hostel,147764.04,68.44,201.05,19.52,261.37,332.5,2159,12.51,0.2058,5
+Library,136900.02,63.41,196.1,13.45,254.93,169.9,2159,11.59,0.3732,6
+Canteen,114575.06,53.04,107.87,14.0,140.23,107.7,2160,9.7,0.4925,7

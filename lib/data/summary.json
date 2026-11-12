@@ -1,0 +1,21 @@
+{
+  "totalKwh": 1181593.2,
+  "totalMwh": 1181.59,
+  "averageDailyKwh": 13128.8,
+  "peakDemandKw": 490.4,
+  "carbonEmissionsKg": 810813.4,
+  "carbonEmissionsTonnes": 810.81,
+  "activeAnomalies": 418,
+  "kwhPerOccupant": 0.366,
+  "totalCostInr": 9452745.92,
+  "totalCostLakhs": 94.53,
+  "totalRecords": 15112,
+  "monitoredBuildings": 7,
+  "startDate": "2026-08-14",
+  "endDate": "2026-11-11",
+  "weekendLoadDropPct": 18.3,
+  "topConsumer": "Computer Science Block",
+  "topConsumerShare": 21.4,
+  "lowestConsumer": "Canteen",
+  "lowestConsumerShare": 9.7
+}

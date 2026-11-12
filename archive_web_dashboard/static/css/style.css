@@ -1,0 +1,542 @@
+/* ==========================================================================
+   Campus Energy Consumption Monitoring & Analytics Dashboard - Custom CSS
+   Theme: Dark Navy Blue (#0f172a, #1e293b), Crisp White Cards, Emerald Highlights (#10b981)
+   ========================================================================== */
+
+:root {
+  --bg-main: #f8fafc;
+  --navy-dark: #0f172a;
+  --navy-card: #1e293b;
+  --navy-sidebar: #0b1329;
+  --navy-border: #334155;
+  --text-primary: #1e293b;
+  --text-muted: #64748b;
+  --text-light: #94a3b8;
+  --accent-green: #10b981;
+  --accent-green-hover: #059669;
+  --accent-green-light: #ecfdf5;
+  --accent-blue: #0ea5e9;
+  --accent-blue-light: #e0f2fe;
+  --accent-amber: #f59e0b;
+  --accent-amber-light: #fef3c7;
+  --accent-red: #ef4444;
+  --accent-red-light: #fee2e2;
+  --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --card-hover-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+  --sidebar-width: 260px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+}
+
+/* ==========================================================================
+   Sidebar Navigation
+   ========================================================================== */
+
+.app-sidebar {
+  width: var(--sidebar-width);
+  background-color: var(--navy-sidebar);
+  color: #fff;
+  min-height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 1030;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  border-right: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.sidebar-brand {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.brand-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--accent-green) 0%, #059669 100%);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
+}
+
+.brand-text h1 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.02em;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.brand-text span {
+  font-size: 0.7rem;
+  color: var(--accent-green);
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.sidebar-nav {
+  padding: 1rem 0;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.nav-section-title {
+  padding: 0.5rem 1.5rem;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #64748b;
+  font-weight: 700;
+}
+
+.sidebar-nav .nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.7rem 1.5rem;
+  color: #94a3b8;
+  font-size: 0.88rem;
+  font-weight: 500;
+  border-left: 3px solid transparent;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.sidebar-nav .nav-link i {
+  font-size: 1.15rem;
+  transition: transform 0.2s ease;
+}
+
+.sidebar-nav .nav-link:hover {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+.sidebar-nav .nav-link:hover i {
+  transform: translateX(2px);
+}
+
+.sidebar-nav .nav-link.active {
+  color: #fff;
+  background-color: rgba(16, 185, 129, 0.12);
+  border-left-color: var(--accent-green);
+  font-weight: 600;
+}
+
+.sidebar-nav .nav-link.active i {
+  color: var(--accent-green);
+}
+
+.sidebar-footer {
+  padding: 1rem 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.75rem;
+  color: var(--text-light);
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.sidebar-footer .demo-badge {
+  display: inline-block;
+  background: rgba(16, 185, 129, 0.2);
+  color: var(--accent-green);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.68rem;
+  margin-bottom: 0.35rem;
+}
+
+/* ==========================================================================
+   Main Content Layout
+   ========================================================================== */
+
+.app-main {
+  margin-left: var(--sidebar-width);
+  flex-grow: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.top-navbar {
+  background-color: #fff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 0.85rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+}
+
+.page-title-box h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--navy-dark);
+  letter-spacing: -0.02em;
+}
+
+.page-title-box p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.content-wrapper {
+  padding: 2rem;
+  flex-grow: 1;
+}
+
+/* ==========================================================================
+   Card Styling
+   ========================================================================== */
+
+.card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  transition: all 0.25s ease;
+  margin-bottom: 1.5rem;
+}
+
+.card:hover {
+  box-shadow: var(--card-hover-shadow);
+}
+
+.card-header-clean {
+  padding: 1.15rem 1.5rem;
+  background-color: transparent;
+  border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-header-clean h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--navy-dark);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.card-header-clean .card-subtitle {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   KPI Cards
+   ========================================================================== */
+
+.kpi-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #fff;
+  padding: 1.25rem 1.35rem;
+  box-shadow: var(--card-shadow);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--card-hover-shadow);
+}
+
+.kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #cbd5e1;
+}
+
+.kpi-card.kpi-primary::before { background: linear-gradient(90deg, #10b981, #059669); }
+.kpi-card.kpi-info::before { background: linear-gradient(90deg, #0ea5e9, #0284c7); }
+.kpi-card.kpi-warning::before { background: linear-gradient(90deg, #f59e0b, #d97706); }
+.kpi-card.kpi-danger::before { background: linear-gradient(90deg, #ef4444, #dc2626); }
+.kpi-card.kpi-navy::before { background: linear-gradient(90deg, #1e293b, #0f172a); }
+
+.kpi-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.6rem;
+}
+
+.kpi-title {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.kpi-icon-wrap {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+}
+
+.kpi-primary .kpi-icon-wrap { background-color: var(--accent-green-light); color: var(--accent-green); }
+.kpi-info .kpi-icon-wrap { background-color: var(--accent-blue-light); color: var(--accent-blue); }
+.kpi-warning .kpi-icon-wrap { background-color: var(--accent-amber-light); color: var(--accent-amber); }
+.kpi-danger .kpi-icon-wrap { background-color: var(--accent-red-light); color: var(--accent-red); }
+.kpi-navy .kpi-icon-wrap { background-color: #f1f5f9; color: var(--navy-card); }
+
+.kpi-value {
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: var(--navy-dark);
+  letter-spacing: -0.03em;
+  margin-bottom: 0.25rem;
+}
+
+.kpi-footer {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* ==========================================================================
+   Filter Bar
+   ========================================================================== */
+
+.filter-bar {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--card-shadow);
+}
+
+.filter-bar .form-label {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.filter-bar .form-select,
+.filter-bar .form-control {
+  font-size: 0.85rem;
+  border-color: #cbd5e1;
+  border-radius: 8px;
+}
+
+.filter-bar .form-select:focus,
+.filter-bar .form-control:focus {
+  border-color: var(--accent-green);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+/* ==========================================================================
+   Buttons and Accents
+   ========================================================================== */
+
+.btn-primary-emerald {
+  background-color: var(--accent-green);
+  border-color: var(--accent-green);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-primary-emerald:hover {
+  background-color: var(--accent-green-hover);
+  border-color: var(--accent-green-hover);
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+}
+
+.btn-outline-navy {
+  border-color: var(--navy-card);
+  color: var(--navy-card);
+  font-weight: 500;
+  border-radius: 8px;
+}
+
+.btn-outline-navy:hover {
+  background-color: var(--navy-card);
+  color: #fff;
+}
+
+/* ==========================================================================
+   Severity Badges & Alerts
+   ========================================================================== */
+
+.badge-sev-critical {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  font-weight: 600;
+  border: 1px solid #fecaca;
+}
+
+.badge-sev-high {
+  background-color: #ffedd5;
+  color: #c2410c;
+  font-weight: 600;
+  border: 1px solid #fed7aa;
+}
+
+.badge-sev-medium {
+  background-color: #fef3c7;
+  color: #b45309;
+  font-weight: 600;
+  border: 1px solid #fde68a;
+}
+
+.badge-sev-low {
+  background-color: #f1f5f9;
+  color: #475569;
+  font-weight: 600;
+  border: 1px solid #e2e8f0;
+}
+
+.badge-source-grid { background-color: #e0f2fe; color: #0369a1; }
+.badge-source-solar { background-color: #ecfdf5; color: #047857; }
+.badge-source-gen { background-color: #fef3c7; color: #b45309; }
+
+/* ==========================================================================
+   Demonstration Banner & Notification
+   ========================================================================== */
+
+.demo-banner {
+  background: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
+  color: #ecfdf5;
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 12px rgba(6, 78, 59, 0.15);
+}
+
+.demo-banner h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.demo-banner p {
+  font-size: 0.82rem;
+  margin: 0.25rem 0 0 0;
+  color: #a7f3d0;
+}
+
+/* ==========================================================================
+   Data Tables
+   ========================================================================== */
+
+.custom-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.85rem;
+}
+
+.custom-table th {
+  background-color: #f8fafc;
+  color: #475569;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  padding: 0.75rem 1rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.custom-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #f1f5f9;
+  color: #334155;
+  vertical-align: middle;
+}
+
+.custom-table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+.table-responsive {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.app-footer {
+  background-color: #fff;
+  border-top: 1px solid #e2e8f0;
+  padding: 1.25rem 2rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.app-footer a {
+  color: var(--navy-dark);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.app-footer a:hover {
+  color: var(--accent-green);
+}
+

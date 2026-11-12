@@ -1,0 +1,17 @@
+Column,Type,Unit,Description
+reading_id,Integer,-,Unique identifier for each hourly reading record
+timestamp,DateTime,YYYY-MM-DD HH:MM:SS,Timestamp of hourly submeter reading
+building_id,String,-,Identifier code for campus facility (BLD01-BLD07)
+building_name,String,-,Name of university facility
+meter_id,String,-,Hardware submeter serial number
+units_kwh,Float,kWh,Cumulative active electrical energy consumed during the hour
+peak_kw,Float,kW,Maximum active electrical power demand registered in the hour
+voltage,Float,Volts,Line AC voltage (nominal 230V)
+occupancy,Integer,Headcount,Estimated sensor occupancy headcount in the facility
+source,String,-,"Generation source: Grid, Solar, or Generator"
+temperature,Float,°C,Ambient outdoor temperature
+day_type,String,-,"Classification: Weekday, Weekend, or Holiday"
+kwh_per_occupant,Float,kWh/person,Per-capita energy intensity index
+carbon_emissions_kg,Float,kg CO2e,Carbon footprint calculated as kWh * 0.82 kg/kWh
+is_anomaly,Integer,0 or 1,Binary flag indicating statistical consumption surge
+anomaly_severity,String,-,"Severity level: Critical, High, Medium, or Normal"

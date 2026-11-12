@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block title %}Data Cleaning Lab - Campus Energy Monitoring{% endblock %}
+{% block page_title %}Data Cleaning & Quality Pipeline Lab{% endblock %}
+{% block page_subtitle %}Comprehensive data audit, quality diagnostics, IQR outlier filtering, and engineering decisions report{% endblock %}
+
+{% block content %}
+
+<!-- Pipeline Summary Audit Banner -->
+<div class="row g-3 mb-4">
+  <div class="col-xl-2 col-md-4 col-sm-6">
+    <div class="card p-3 border-start border-4 border-secondary">
+      <span class="small text-muted text-uppercase fw-bold">Original Records</span>
+      <h3 class="mb-0 fw-bold text-dark">{{ "{:,}".format(report.original_record_count or raw_count) }}</h3>
+      <small class="text-muted">Simulated raw telemetry</small>
+    </div>
+  </div>
+
+  <div class="col-xl-2 col-md-4 col-sm-6">
+    <div class="card p-3 border-start border-4 border-danger">
+      <span class="small text-muted text-uppercase fw-bold">Duplicates Dropped</span>
+      <h3 class="mb-0 fw-bold text-danger">{{ report.duplicate_records_removed }}</h3>
+      <small class="text-muted">Matching building+timestamp</small>
+    </div>
+  </div>
+
+  <div class="col-xl-2 col-md-4 col-sm-6">
+    <div class="card p-3 border-start border-4 border-warning">
+      <span class="small text-muted text-uppercase fw-bold">Invalid Timestamps</span>
+      <h3 class="mb-0 fw-bold text-warning">{{ report.invalid_timestamps_removed }}</h3>
+      <small class="text-muted">Corrupted date strings</small>
+    </div>
+  </div>
+
+  <div class="col-xl-2 col-md-4 col-sm-6">
+    <div class="card p-3 border-start border-4 border-info">
+      <span class="small text-muted text-uppercase fw-bold">Negative Inverted</span>
+      <h3 class="mb-0 fw-bold text-info">{{ report.negative_readings_corrected_or_removed }}</h3>
+      <small class="text-muted">CT polarity sensor glitches</small>
+    </div>
+  </div>
+
+  <div class="col-xl-2 col-md-4 col-sm-6">
+    <div class="card p-3 border-start border-4 border-primary">
+      <span class="small text-muted text-uppercase fw-bold">IQR Outliers Treated</span>
+      <h3 class="mb-0 fw-bold text-primary">{{ report.outliers_detected }}</h3>
+      <small class="text-muted">>2.5x IQR threshold</small>
+    </div>
+  </div>
+
+  <div class="col-xl-2 col-md-4 col-sm-6">
+    <div class="card p-3 border-start border-4 border-success">
+      <span class="small text-muted text-uppercase fw-bold">Clean Records</span>
+      <h3 class="mb-0 fw-bold text-success">{{ "{:,}".format(report.final_cleaned_record_count or cleaned_count) }}</h3>
+      <small class="text-muted">Audited & normalized</small>
+    </div>
+  </div>
+</div>
+
+<!-- Detailed Data Cleaning Decisions -->
+<div class="card mb-4">
+  <div class="card-header-clean">
+    <div>
+      <h3><i class="bi bi-journal-check text-success"></i> Pipeline Cleaning Log & Methodological Rationale</h3>
+      <span class="card-subtitle">Transparent auditing: Explains exactly how and why every anomaly was handled</span>
+    </div>
+    <a href="{{ url_for('download_cleaning_report') }}" class="btn btn-outline-navy btn-sm">
+      <i class="bi bi-file-earmark-code"></i> Download JSON Audit Report
+    </a>
+  </div>
+
+  <div class="card-body">
+    {% if report.cleaning_decisions and report.cleaning_decisions|length > 0 %}
+      <div class="list-group list-group-flush">
+        {% for d in report.cleaning_decisions %}
+        <div class="list-group-item px-0 py-3">
+          <div class="d-flex align-items-center gap-2 mb-1">
+            <span class="badge bg-navy text-white">{{ d.step }}</span>
+            <strong class="text-dark">{{ d.action }}</strong>
+          </div>
+          <div class="small text-muted ps-1">
+            <strong>Engineering Rationale:</strong> {{ d.rationale }}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="text-muted">No cleaning decisions recorded yet.</p>
+    {% endif %}
+  </div>
+</div>
+
+<!-- Cleaning Architecture Stages -->
+<div class="card p-4">
+  <h4 class="fs-6 fw-bold text-navy text-uppercase mb-3">10-Stage Data Processing Pipeline Architecture</h4>
+  <div class="row g-3">
+    <div class="col-md-3 col-sm-6">
+      <div class="p-3 bg-light rounded border h-100">
+        <span class="badge bg-secondary mb-2">Stage 1–3</span>
+        <h6 class="fw-bold mb-1">Ingestion & Audit</h6>
+        <p class="small text-muted mb-0">Null value counts, duplicate row removal based on compound keys, and ISO 8601 timestamp parsing.</p>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+      <div class="p-3 bg-light rounded border h-100">
+        <span class="badge bg-secondary mb-2">Stage 4–5</span>
+        <h6 class="fw-bold mb-1">Standardization</h6>
+        <p class="small text-muted mb-0">Building name string stripping, casing normalization, and robust casting of numeric telemetry columns.</p>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+      <div class="p-3 bg-light rounded border h-100">
+        <span class="badge bg-secondary mb-2">Stage 6–7</span>
+        <h6 class="fw-bold mb-1">Polarity & Imputation</h6>
+        <p class="small text-muted mb-0">Correction of reversed CT current signs and diurnal hourly median imputation for missing sensor values.</p>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+      <div class="p-3 bg-light rounded border h-100">
+        <span class="badge bg-secondary mb-2">Stage 8–10</span>
+        <h6 class="fw-bold mb-1">IQR Capping & Export</h6>
+        <p class="small text-muted mb-0">Detection of sensor transmission glitches via 2.5x IQR capping to 99th percentile and dual-file serialization.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+

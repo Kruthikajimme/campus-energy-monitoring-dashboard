@@ -1,0 +1,9 @@
+{
+  "version": "1.0",
+  "datasetReference": {
+    "byPath": {
+      "path": "../Campus_Energy_Analytics.Dataset"
+    },
+    "byConnection": null
+  }
+}

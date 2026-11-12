@@ -1,0 +1,29 @@
+[
+  {
+    "id": "SRC01",
+    "name": "Grid",
+    "isRenewable": false,
+    "totalKwh": 967906.2,
+    "carbonKg": 793682.3,
+    "sharePct": 81.9,
+    "color": "#0EA5E9"
+  },
+  {
+    "id": "SRC02",
+    "name": "Solar",
+    "isRenewable": true,
+    "totalKwh": 195654.2,
+    "carbonKg": 0.0,
+    "sharePct": 16.6,
+    "color": "#10B981"
+  },
+  {
+    "id": "SRC03",
+    "name": "Generator",
+    "isRenewable": false,
+    "totalKwh": 18032.8,
+    "carbonKg": 17131.1,
+    "sharePct": 1.5,
+    "color": "#F59E0B"
+  }
+]

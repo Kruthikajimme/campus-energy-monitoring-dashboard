@@ -1,0 +1,4 @@
+source_id,source_name,is_renewable,carbon_factor_kg_per_kwh,description
+SRC01,Grid,No,0.82,State utility electricity grid feed via main campus substation (primary baseload)
+SRC02,Solar,Yes,0.0,Rooftop grid-tied photovoltaic generation array during daylight sun hours
+SRC03,Generator,No,0.95,Campus emergency diesel generator backup during grid curtailment or maintenance

@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block title %}Consumption Trends - Campus Energy Monitoring{% endblock %}
+{% block page_title %}Temporal Energy Dynamics & Trends{% endblock %}
+{% block page_subtitle %}Daily time series, monthly stacked compositions, and 24-hour diurnal load profiles{% endblock %}
+
+{% block content %}
+
+<!-- Filter Bar -->
+<div class="filter-bar">
+  <div class="row g-2 align-items-end">
+    <div class="col-md-3 col-sm-6">
+      <label class="form-label" for="filterBuilding">Facility Filter</label>
+      <select class="form-select form-select-sm" id="filterBuilding">
+        <option value="All" selected>All Campus Facilities (7)</option>
+        {% for b in all_buildings %}
+          <option value="{{ b }}">{{ b }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-2 col-sm-6">
+      <label class="form-label" for="filterMonth">Month</label>
+      <select class="form-select form-select-sm" id="filterMonth">
+        <option value="All" selected>All Months</option>
+        {% for m in available_months %}
+          <option value="{{ m }}">{{ m }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-2 col-sm-6">
+      <label class="form-label" for="filterStartDate">Start Date</label>
+      <input type="date" class="form-control form-control-sm" id="filterStartDate">
+    </div>
+    <div class="col-md-2 col-sm-6">
+      <label class="form-label" for="filterEndDate">End Date</label>
+      <input type="date" class="form-control form-control-sm" id="filterEndDate">
+    </div>
+    <div class="col-md-2 col-sm-6">
+      <label class="form-label" for="filterSource">Power Source</label>
+      <select class="form-select form-select-sm" id="filterSource">
+        <option value="All" selected>All Sources</option>
+        {% for s in all_sources %}
+          <option value="{{ s }}">{{ s }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-1 col-sm-12 text-end">
+      <button type="button" class="btn btn-outline-secondary btn-sm w-100" id="btnResetFilters">Reset</button>
+    </div>
+  </div>
+</div>
+
+<!-- Daily Time Series Chart -->
+<div class="card mb-4">
+  <div class="card-header-clean">
+    <div>
+      <h3><i class="bi bi-graph-up text-emerald"></i> Full-Period Daily Consumption Timeline (kWh)</h3>
+      <span class="card-subtitle">Tracking daily aggregate energy alongside maximum peak demand</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div style="height: 350px;">
+      <canvas id="chartTrendsDaily"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="row g-4 mb-4">
+  <!-- Monthly Stacked Breakdown Chart -->
+  <div class="col-lg-6">
+    <div class="card h-100">
+      <div class="card-header-clean">
+        <div>
+          <h3><i class="bi bi-calendar3 text-primary"></i> Monthly Building-wise Energy Share</h3>
+          <span class="card-subtitle">Stacked monthly comparison across all facilities</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div style="height: 320px;">
+          <canvas id="chartTrendsMonthly"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Diurnal Hourly Profile -->
+  <div class="col-lg-6">
+    <div class="card h-100">
+      <div class="card-header-clean">
+        <div>
+          <h3><i class="bi bi-clock-fill text-purple"></i> 24-Hour Diurnal Load Profile</h3>
+          <span class="card-subtitle">Hourly progression highlighting campus peak windows</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div style="height: 320px;">
+          <canvas id="chartTrendsHourly"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Day Type Operational Analysis -->
+<div class="row g-3">
+  <div class="col-12">
+    <h4 class="fs-6 fw-bold text-muted text-uppercase mb-3">Day-Type Operational Benchmarks</h4>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card p-3 border-start border-4 border-primary">
+      <span class="small text-muted text-uppercase fw-bold">Weekday Operation</span>
+      <h4 class="mt-1 mb-2 fw-bold text-dark">High Industrial Load</h4>
+      <p class="small text-muted mb-0">
+        Classrooms, labs, and administrative offices fully active. HVAC accounts for 38% of total daytime consumption between 09:00 and 16:30.
+      </p>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card p-3 border-start border-4 border-success">
+      <span class="small text-muted text-uppercase fw-bold">Weekend Operation</span>
+      <h4 class="mt-1 mb-2 fw-bold text-dark">Residential Shift</h4>
+      <p class="small text-muted mb-0">
+        Academic facilities idle; hostel and dining consumption increases by ~30% with students on campus, resulting in smooth, non-peaking load profiles.
+      </p>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card p-3 border-start border-4 border-warning">
+      <span class="small text-muted text-uppercase fw-bold">Campus Holidays</span>
+      <h4 class="mt-1 mb-2 fw-bold text-dark">Baseload Minimum</h4>
+      <p class="small text-muted mb-0">
+        Essential services and servers only. Ideal baseline period for identifying standby leakage and calibrating submeter drift.
+      </p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+

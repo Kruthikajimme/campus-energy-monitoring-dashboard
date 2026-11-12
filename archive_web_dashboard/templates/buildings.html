@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% block title %}Building Analysis - Campus Energy Monitoring{% endblock %}
+{% block page_title %}Campus Facility Benchmarking{% endblock %}
+{% block page_subtitle %}Comprehensive performance comparison, peak demand metrics, and energy intensity ratings{% endblock %}
+
+{% block content %}
+
+<!-- Building Peak Demand Chart & Facility Distribution -->
+<div class="row g-4 mb-4">
+  <div class="col-lg-7">
+    <div class="card h-100">
+      <div class="card-header-clean">
+        <div>
+          <h3><i class="bi bi-speedometer text-danger"></i> Peak Electricity Demand by Facility (kW)</h3>
+          <span class="card-subtitle">Maximum instantaneous registered demand per facility</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div style="height: 320px;">
+          <canvas id="chartBuildingPeaks"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-5">
+    <div class="card h-100">
+      <div class="card-header-clean">
+        <div>
+          <h3><i class="bi bi-trophy-fill text-warning"></i> Highest Energy Consumer</h3>
+          <span class="card-subtitle">Dominant load center on campus</span>
+        </div>
+      </div>
+      <div class="card-body d-flex flex-column justify-content-center">
+        {% if building_data and building_data|length > 0 %}
+          {% set top_b = building_data[0] %}
+          <div class="text-center p-3">
+            <span class="badge bg-warning text-dark px-3 py-2 fs-6 mb-2">#1 Highest Campus Load</span>
+            <h2 class="display-6 fw-bold text-navy mb-1">{{ top_b.building }}</h2>
+            <div class="text-muted mb-3">{{ top_b.percentage }}% of Total Campus Electricity Consumption</div>
+            
+            <div class="row g-2 justify-content-center text-start">
+              <div class="col-6 bg-light p-2 rounded border">
+                <small class="text-muted d-block">Total Energy</small>
+                <strong class="fs-5 text-dark">{{ "{:,.1f}".format(top_b.total_kwh) }} kWh</strong>
+              </div>
+              <div class="col-6 bg-light p-2 rounded border">
+                <small class="text-muted d-block">Peak Demand</small>
+                <strong class="fs-5 text-danger">{{ top_b.peak_demand_kw }} kW</strong>
+              </div>
+              <div class="col-6 bg-light p-2 rounded border">
+                <small class="text-muted d-block">Hourly Average</small>
+                <strong class="fs-6 text-dark">{{ top_b.avg_kwh }} kWh/h</strong>
+              </div>
+              <div class="col-6 bg-light p-2 rounded border">
+                <small class="text-muted d-block">Avg Occupancy</small>
+                <strong class="fs-6 text-dark">{{ top_b.avg_occupancy }} people</strong>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Detailed Facility Comparison Table -->
+<div class="card mb-4">
+  <div class="card-header-clean">
+    <div>
+      <h3><i class="bi bi-table text-primary"></i> Facility Energy Performance Scorecard</h3>
+      <span class="card-subtitle">Aggregated telemetry statistics across all monitored university structures</span>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="custom-table table-hover">
+      <thead>
+        <tr>
+          <th>Facility / Building</th>
+          <th class="text-end">Total Energy (kWh)</th>
+          <th class="text-end">Campus Load Share</th>
+          <th class="text-end">Avg Hourly (kWh)</th>
+          <th class="text-end">Max Hourly (kWh)</th>
+          <th class="text-end">Peak Demand (kW)</th>
+          <th class="text-center">Avg Occupancy</th>
+          <th class="text-center">Record Count</th>
+          <th class="text-center">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for b in building_data %}
+        <tr class="{% if b.is_highest %}table-warning{% endif %}">
+          <td>
+            <strong>{{ b.building }}</strong>
+            {% if b.is_highest %}
+              <span class="badge bg-warning text-dark ms-1"><i class="bi bi-fire"></i> Top Load</span>
+            {% endif %}
+          </td>
+          <td class="text-end fw-bold">{{ "{:,.2f}".format(b.total_kwh) }}</td>
+          <td class="text-end">
+            <div class="d-flex align-items-center justify-content-end gap-2">
+              <span class="small fw-semibold">{{ b.percentage }}%</span>
+              <div class="progress" style="width: 60px; height: 6px;">
+                <div class="progress-bar {% if b.is_highest %}bg-warning{% else %}bg-success{% endif %}" role="progressbar" style="width: {{ b.percentage }}%"></div>
+              </div>
+            </div>
+          </td>
+          <td class="text-end">{{ b.avg_kwh }}</td>
+          <td class="text-end">{{ b.max_kwh }}</td>
+          <td class="text-end text-danger fw-semibold">{{ b.peak_demand_kw }}</td>
+          <td class="text-center">{{ b.avg_occupancy }}</td>
+          <td class="text-center text-muted">{{ "{:,}".format(b.record_count) }}</td>
+          <td class="text-center">
+            {% if b.percentage > 20.0 %}
+              <span class="badge bg-danger-subtle text-danger border border-danger-subtle">High Load</span>
+            {% elif b.percentage > 12.0 %}
+              <span class="badge bg-info-subtle text-info border border-info-subtle">Moderate</span>
+            {% else %}
+              <span class="badge bg-success-subtle text-success border border-success-subtle">Economical</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Building Profiles Grid -->
+<div class="row g-3">
+  <div class="col-12">
+    <h4 class="fs-6 fw-bold text-muted text-uppercase mb-3">Facility Profiles & Functional Classifications</h4>
+  </div>
+  
+  <div class="col-md-4">
+    <div class="card p-3 h-100">
+      <div class="d-flex align-items-center gap-2 mb-2">
+        <i class="bi bi-mortarboard-fill text-primary fs-4"></i>
+        <h5 class="fs-6 fw-bold mb-0">Academic & Teaching</h5>
+      </div>
+      <p class="small text-muted mb-0">
+        Academic Block & Library. Exhibits sharp weekday diurnal spikes between 08:00 and 18:00 driven by classroom lighting, auditorium projectors, and central air handling units.
+      </p>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card p-3 h-100">
+      <div class="d-flex align-items-center gap-2 mb-2">
+        <i class="bi bi-cpu-fill text-danger fs-4"></i>
+        <h5 class="fs-6 fw-bold mb-0">High-Intensity Technology</h5>
+      </div>
+      <p class="small text-muted mb-0">
+        Computer Science & Laboratory Blocks. Characterized by elevated 24/7 continuous baseloads (server rooms, cloud racks, climate controls, autoclaves, and hydraulic lab test equipment).
+      </p>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card p-3 h-100">
+      <div class="d-flex align-items-center gap-2 mb-2">
+        <i class="bi bi-house-door-fill text-success fs-4"></i>
+        <h5 class="fs-6 fw-bold mb-0">Residential & Dining</h5>
+      </div>
+      <p class="small text-muted mb-0">
+        Boys Hostel, Girls Hostel & Canteen. Inverted consumption curve with morning (06:30–08:30) and evening/night (18:00–23:30) peaks, with strong weekend occupancy stability.
+      </p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+

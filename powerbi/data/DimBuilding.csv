@@ -1,0 +1,8 @@
+building_id,building_name,building_type,design_capacity,meter_id,baseload_kw,active_hours
+BLD01,Academic Block,Academic & Teaching,800,MTR-BLD01,45.0,08:00 - 18:00
+BLD02,Library,Academic & Research,450,MTR-BLD02,30.0,08:00 - 22:00
+BLD03,Computer Science Block,Technology & Computing,600,MTR-BLD03,70.0,08:00 - 20:00
+BLD04,Laboratory Block,Experimental Laboratories,350,MTR-BLD04,55.0,09:00 - 17:00
+BLD05,Boys Hostel,Student Residence,500,MTR-BLD05,25.0,08:00 - 18:00
+BLD06,Girls Hostel,Student Residence,450,MTR-BLD06,25.0,08:00 - 18:00
+BLD07,Canteen,Dining & Services,300,MTR-BLD07,20.0,08:00 - 18:00

@@ -1,0 +1,1021 @@
+{
+  "name": "SemanticModel",
+  "compatibilityLevel": 1567,
+  "model": {
+    "culture": "en-US",
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "sourceQueryCulture": "en-US",
+    "tables": [
+      {
+        "name": "FactEnergyConsumption",
+        "lineageTag": "dae28576-0137-4985-87d5-1af90117836c",
+        "columns": [
+          {
+            "name": "reading_id",
+            "dataType": "int64",
+            "sourceColumn": "reading_id",
+            "lineageTag": "3dc321d9-feec-426d-a4dc-70bc4e1f849c",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "timestamp",
+            "dataType": "dateTime",
+            "formatString": "yyyy-MM-dd HH:mm:ss",
+            "sourceColumn": "timestamp",
+            "lineageTag": "61c8d58f-5021-4ecd-8b12-12e4855571a9"
+          },
+          {
+            "name": "date_key",
+            "dataType": "int64",
+            "sourceColumn": "date_key",
+            "lineageTag": "6cd093a0-2bd0-47c2-b9ff-cd5c80d81d3a",
+            "isHidden": true
+          },
+          {
+            "name": "time_key",
+            "dataType": "int64",
+            "sourceColumn": "time_key",
+            "lineageTag": "b094b290-f356-4170-b011-5ce8bfc96f06",
+            "isHidden": true
+          },
+          {
+            "name": "building_id",
+            "dataType": "string",
+            "sourceColumn": "building_id",
+            "lineageTag": "e9139cea-2ac9-4beb-85de-46150fb7949f",
+            "isHidden": true
+          },
+          {
+            "name": "source_id",
+            "dataType": "string",
+            "sourceColumn": "source_id",
+            "lineageTag": "da4b1187-709c-4e16-a4c2-a0753e50fd00",
+            "isHidden": true
+          },
+          {
+            "name": "meter_id",
+            "dataType": "string",
+            "sourceColumn": "meter_id",
+            "lineageTag": "3035e8b3-682a-410d-8888-897e5b133a3d",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "units_kwh",
+            "dataType": "double",
+            "formatString": "#,##0.00",
+            "sourceColumn": "units_kwh",
+            "lineageTag": "be15811c-11b6-47e6-b81f-d7fc2072125c",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "peak_kw",
+            "dataType": "double",
+            "formatString": "#,##0.00",
+            "sourceColumn": "peak_kw",
+            "lineageTag": "9cd455e4-e460-40ef-81d0-7f2b12f258a5",
+            "summarizeBy": "max"
+          },
+          {
+            "name": "voltage",
+            "dataType": "double",
+            "formatString": "#,##0.0",
+            "sourceColumn": "voltage",
+            "lineageTag": "970d3535-466b-45bf-8805-b94d7fd3f5bc",
+            "summarizeBy": "average"
+          },
+          {
+            "name": "occupancy",
+            "dataType": "int64",
+            "formatString": "#,##0",
+            "sourceColumn": "occupancy",
+            "lineageTag": "f50bf760-8b2c-42e8-95e6-0f98059a1ae4",
+            "summarizeBy": "average"
+          },
+          {
+            "name": "temperature",
+            "dataType": "double",
+            "formatString": "0.0",
+            "sourceColumn": "temperature",
+            "lineageTag": "f8f65038-548b-480b-88df-ac558d165284",
+            "summarizeBy": "average"
+          },
+          {
+            "name": "kwh_per_occupant",
+            "dataType": "double",
+            "formatString": "#,##0.000",
+            "sourceColumn": "kwh_per_occupant",
+            "lineageTag": "abeb18e3-9573-4c9a-beb7-b7b7867b3cb7",
+            "summarizeBy": "average"
+          },
+          {
+            "name": "carbon_emissions_kg",
+            "dataType": "double",
+            "formatString": "#,##0.00",
+            "sourceColumn": "carbon_emissions_kg",
+            "lineageTag": "9221a159-c3a0-49b5-a0cd-a9bb5dd7327b",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "rolling_7d_kwh",
+            "dataType": "double",
+            "formatString": "#,##0.00",
+            "sourceColumn": "rolling_7d_kwh",
+            "lineageTag": "40514a29-23f8-46ba-b66c-eb8f5dc50562",
+            "summarizeBy": "average"
+          },
+          {
+            "name": "energy_intensity_index",
+            "dataType": "double",
+            "formatString": "0.000",
+            "sourceColumn": "energy_intensity_index",
+            "lineageTag": "0660544b-ee50-4526-b7e1-2d5c4d583814",
+            "summarizeBy": "average"
+          },
+          {
+            "name": "is_anomaly",
+            "dataType": "int64",
+            "sourceColumn": "is_anomaly",
+            "lineageTag": "94be9304-ca03-4486-82aa-b3ccafb1a44b",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "anomaly_severity",
+            "dataType": "string",
+            "sourceColumn": "anomaly_severity",
+            "lineageTag": "e5f7643e-57cb-4920-82de-c3ed3209e89e",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "FactEnergyConsumption",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(\"C:/Users/Kruthika/OneDrive/Desktop/Campus Energy Consumption Monitoring and Analytics Dashboard/powerbi/data/FactEnergyConsumption.csv\"), [Delimiter=\",\", Columns=18, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\", {",
+                "        {\"reading_id\", Int64.Type},",
+                "        {\"timestamp\", type datetime},",
+                "        {\"date_key\", Int64.Type},",
+                "        {\"time_key\", Int64.Type},",
+                "        {\"building_id\", type text},",
+                "        {\"source_id\", type text},",
+                "        {\"meter_id\", type text},",
+                "        {\"units_kwh\", type number},",
+                "        {\"peak_kw\", type number},",
+                "        {\"voltage\", type number},",
+                "        {\"occupancy\", Int64.Type},",
+                "        {\"temperature\", type number},",
+                "        {\"kwh_per_occupant\", type number},",
+                "        {\"carbon_emissions_kg\", type number},",
+                "        {\"rolling_7d_kwh\", type number},",
+                "        {\"energy_intensity_index\", type number},",
+                "        {\"is_anomaly\", Int64.Type},",
+                "        {\"anomaly_severity\", type text}",
+                "    })",
+                "in",
+                "    #\"Changed Type\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimBuilding",
+        "lineageTag": "5b90a889-5295-4be4-b2a5-ebbe84a42e49",
+        "columns": [
+          {
+            "name": "building_id",
+            "dataType": "string",
+            "sourceColumn": "building_id",
+            "lineageTag": "a0ef38f4-eb2e-4b33-9713-0777ee2fd2b5",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "building_name",
+            "dataType": "string",
+            "sourceColumn": "building_name",
+            "lineageTag": "ec09ef57-974c-4890-a90f-77f1b1436808",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "building_type",
+            "dataType": "string",
+            "sourceColumn": "building_type",
+            "lineageTag": "b3e75a6b-fd56-4460-8549-0c36e7727815",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "design_capacity",
+            "dataType": "int64",
+            "formatString": "#,##0",
+            "sourceColumn": "design_capacity",
+            "lineageTag": "485c9a40-34bb-40fe-84f2-c16fa1994234",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "meter_id",
+            "dataType": "string",
+            "sourceColumn": "meter_id",
+            "lineageTag": "9eff71b0-6837-43b2-a527-e8c916c1846a",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "baseload_kw",
+            "dataType": "double",
+            "formatString": "#,##0.0",
+            "sourceColumn": "baseload_kw",
+            "lineageTag": "c65c2142-e2ed-4639-8357-ec1e28cf50b6",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "active_hours",
+            "dataType": "string",
+            "sourceColumn": "active_hours",
+            "lineageTag": "4df50b6c-4557-4b3c-92b5-4a078fc53d8a",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimBuilding",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(\"C:/Users/Kruthika/OneDrive/Desktop/Campus Energy Consumption Monitoring and Analytics Dashboard/powerbi/data/DimBuilding.csv\"), [Delimiter=\",\", Columns=7, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\", {",
+                "        {\"building_id\", type text},",
+                "        {\"building_name\", type text},",
+                "        {\"building_type\", type text},",
+                "        {\"design_capacity\", Int64.Type},",
+                "        {\"meter_id\", type text},",
+                "        {\"baseload_kw\", type number},",
+                "        {\"active_hours\", type text}",
+                "    })",
+                "in",
+                "    #\"Changed Type\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimDate",
+        "dataCategory": "Time",
+        "lineageTag": "713fa553-c8b1-458b-86e8-a484846bb293",
+        "columns": [
+          {
+            "name": "date_key",
+            "dataType": "int64",
+            "sourceColumn": "date_key",
+            "lineageTag": "f26b1521-12ea-49b8-afb7-f21382f37267",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "date",
+            "dataType": "dateTime",
+            "isKey": true,
+            "formatString": "yyyy-MM-dd",
+            "sourceColumn": "date",
+            "lineageTag": "1b91c9f3-f5e8-41b6-acff-279e9c792721",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "year",
+            "dataType": "int64",
+            "sourceColumn": "year",
+            "lineageTag": "f18d470a-3f8d-4098-bdfc-2adc1b610d14",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "quarter",
+            "dataType": "string",
+            "sourceColumn": "quarter",
+            "lineageTag": "622f2fdc-a55f-48ed-9f08-28245640bd96",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "quarter_name",
+            "dataType": "string",
+            "sourceColumn": "quarter_name",
+            "lineageTag": "9eb69c28-55a5-4e02-a3ae-2b33a17d8996",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "month",
+            "dataType": "int64",
+            "sourceColumn": "month",
+            "lineageTag": "89c77974-1df4-41b2-90f1-14ed3c40662e",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "month_name",
+            "dataType": "string",
+            "sourceColumn": "month_name",
+            "lineageTag": "9488a538-5faa-45fc-95eb-875f76e242b3",
+            "summarizeBy": "none",
+            "sortByColumn": "month"
+          },
+          {
+            "name": "month_year",
+            "dataType": "string",
+            "sourceColumn": "month_year",
+            "lineageTag": "31e04ad3-8384-43e6-a824-bd64a2dabb6b",
+            "summarizeBy": "none",
+            "sortByColumn": "date_key"
+          },
+          {
+            "name": "week_number",
+            "dataType": "int64",
+            "sourceColumn": "week_number",
+            "lineageTag": "ea91dd9a-e06f-4fc2-8439-562b5e34088e",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "day",
+            "dataType": "int64",
+            "sourceColumn": "day",
+            "lineageTag": "c1a1cc24-fde0-4fc6-ba28-e5783630f172",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "day_name",
+            "dataType": "string",
+            "sourceColumn": "day_name",
+            "lineageTag": "ec983faf-14b2-41a9-8b67-df56c48792f6",
+            "summarizeBy": "none",
+            "sortByColumn": "day_of_week"
+          },
+          {
+            "name": "day_of_week",
+            "dataType": "int64",
+            "sourceColumn": "day_of_week",
+            "lineageTag": "d43a2317-33a8-4b40-853c-7e184178ed12",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "is_weekend",
+            "dataType": "string",
+            "sourceColumn": "is_weekend",
+            "lineageTag": "a51bb9f3-6aac-4425-ac2e-299fc4a661f3",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "is_holiday",
+            "dataType": "string",
+            "sourceColumn": "is_holiday",
+            "lineageTag": "29a4288d-20ae-4dea-86a2-a844b2291abb",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "day_type",
+            "dataType": "string",
+            "sourceColumn": "day_type",
+            "lineageTag": "5f1a7c87-455c-48f0-a2fc-f1a818029644",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimDate",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(\"C:/Users/Kruthika/OneDrive/Desktop/Campus Energy Consumption Monitoring and Analytics Dashboard/powerbi/data/DimDate.csv\"), [Delimiter=\",\", Columns=15, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\", {",
+                "        {\"date_key\", Int64.Type},",
+                "        {\"date\", type date},",
+                "        {\"year\", Int64.Type},",
+                "        {\"quarter\", type text},",
+                "        {\"quarter_name\", type text},",
+                "        {\"month\", Int64.Type},",
+                "        {\"month_name\", type text},",
+                "        {\"month_year\", type text},",
+                "        {\"week_number\", Int64.Type},",
+                "        {\"day\", Int64.Type},",
+                "        {\"day_name\", type text},",
+                "        {\"day_of_week\", Int64.Type},",
+                "        {\"is_weekend\", type text},",
+                "        {\"is_holiday\", type text},",
+                "        {\"day_type\", type text}",
+                "    })",
+                "in",
+                "    #\"Changed Type\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimTime",
+        "lineageTag": "524276d7-98fd-4fe6-87d0-2867e146ede0",
+        "columns": [
+          {
+            "name": "time_key",
+            "dataType": "int64",
+            "sourceColumn": "time_key",
+            "lineageTag": "736828ad-d187-4ba2-9a57-e8b08943872e",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "hour",
+            "dataType": "int64",
+            "sourceColumn": "hour",
+            "lineageTag": "d1373d5c-fe17-459f-8c65-8f561c1330f1",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "hour_label",
+            "dataType": "string",
+            "sourceColumn": "hour_label",
+            "lineageTag": "6b04b329-8d59-424f-b6d7-05fdea50c9d7",
+            "summarizeBy": "none",
+            "sortByColumn": "hour"
+          },
+          {
+            "name": "time_of_day",
+            "dataType": "string",
+            "sourceColumn": "time_of_day",
+            "lineageTag": "ca5f6453-01ad-49ff-b504-988c2eeab3a3",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "is_peak_hours",
+            "dataType": "string",
+            "sourceColumn": "is_peak_hours",
+            "lineageTag": "fd9d1e81-3e16-4033-ba4c-202c829b3255",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimTime",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(\"C:/Users/Kruthika/OneDrive/Desktop/Campus Energy Consumption Monitoring and Analytics Dashboard/powerbi/data/DimTime.csv\"), [Delimiter=\",\", Columns=5, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\", {",
+                "        {\"time_key\", Int64.Type},",
+                "        {\"hour\", Int64.Type},",
+                "        {\"hour_label\", type text},",
+                "        {\"time_of_day\", type text},",
+                "        {\"is_peak_hours\", type text}",
+                "    })",
+                "in",
+                "    #\"Changed Type\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimEnergySource",
+        "lineageTag": "7e41c607-fac3-4d4a-a26c-ec8f2af98b5c",
+        "columns": [
+          {
+            "name": "source_id",
+            "dataType": "string",
+            "sourceColumn": "source_id",
+            "lineageTag": "39b3e127-bb30-41ae-967b-5f6d740e8e87",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "source_name",
+            "dataType": "string",
+            "sourceColumn": "source_name",
+            "lineageTag": "757b79a3-c58d-4afc-a3e1-415d20fcb2fe",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "is_renewable",
+            "dataType": "string",
+            "sourceColumn": "is_renewable",
+            "lineageTag": "54224169-34e0-4b25-8563-68a03e058bcb",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "carbon_factor_kg_per_kwh",
+            "dataType": "double",
+            "formatString": "0.00",
+            "sourceColumn": "carbon_factor_kg_per_kwh",
+            "lineageTag": "eca665e9-ad94-41fa-b0a8-271ddab7668d",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "description",
+            "dataType": "string",
+            "sourceColumn": "description",
+            "lineageTag": "ab7a91db-7d6e-4089-913a-80cd5a97f5f1",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimEnergySource",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(\"C:/Users/Kruthika/OneDrive/Desktop/Campus Energy Consumption Monitoring and Analytics Dashboard/powerbi/data/DimEnergySource.csv\"), [Delimiter=\",\", Columns=5, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\", {",
+                "        {\"source_id\", type text},",
+                "        {\"source_name\", type text},",
+                "        {\"is_renewable\", type text},",
+                "        {\"carbon_factor_kg_per_kwh\", type number},",
+                "        {\"description\", type text}",
+                "    })",
+                "in",
+                "    #\"Changed Type\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "PowerBI_Anomaly_Report",
+        "lineageTag": "eb5b0a16-01f4-453c-afaf-9db395bbe001",
+        "columns": [
+          {
+            "name": "anomaly_id",
+            "dataType": "string",
+            "sourceColumn": "anomaly_id",
+            "lineageTag": "76b1e09b-22a4-4ac1-a8da-95b140eaa1ff",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "timestamp",
+            "dataType": "dateTime",
+            "formatString": "yyyy-MM-dd HH:mm:ss",
+            "sourceColumn": "timestamp",
+            "lineageTag": "f65cbbd1-b7c5-455d-b9f7-73337cd8ab0a"
+          },
+          {
+            "name": "date_key",
+            "dataType": "int64",
+            "sourceColumn": "date_key",
+            "lineageTag": "2d832189-83b2-4603-a358-6cac6f7eaad0",
+            "isHidden": true
+          },
+          {
+            "name": "time_key",
+            "dataType": "int64",
+            "sourceColumn": "time_key",
+            "lineageTag": "8e8d275a-8f28-46e3-87b8-a151168bba00",
+            "isHidden": true
+          },
+          {
+            "name": "building_id",
+            "dataType": "string",
+            "sourceColumn": "building_id",
+            "lineageTag": "3e496d9e-2814-4071-a283-0ec08f8b1d62",
+            "isHidden": true
+          },
+          {
+            "name": "building_name",
+            "dataType": "string",
+            "sourceColumn": "building_name",
+            "lineageTag": "0250e532-a699-46d1-9c15-6d23ba48e715",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "recorded_kwh",
+            "dataType": "double",
+            "formatString": "#,##0.00",
+            "sourceColumn": "recorded_kwh",
+            "lineageTag": "a8c83ae4-4251-4f68-9861-716e764c802e",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "expected_kwh",
+            "dataType": "double",
+            "formatString": "#,##0.00",
+            "sourceColumn": "expected_kwh",
+            "lineageTag": "7a8f2bd2-efd9-46dd-991e-381ea15b4b24",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "deviation_kwh",
+            "dataType": "double",
+            "formatString": "#,##0.00",
+            "sourceColumn": "deviation_kwh",
+            "lineageTag": "d51f578e-9a91-4d4e-bcf4-892e55dca1e4",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "deviation_pct",
+            "dataType": "double",
+            "formatString": "0.0\"%\"",
+            "sourceColumn": "deviation_pct",
+            "lineageTag": "6b66fce4-3f71-44d2-9ca7-7ecbcec8574d",
+            "summarizeBy": "average"
+          },
+          {
+            "name": "peak_kw",
+            "dataType": "double",
+            "formatString": "#,##0.00",
+            "sourceColumn": "peak_kw",
+            "lineageTag": "ce044634-2aed-42f5-81a9-96043a68b309",
+            "summarizeBy": "max"
+          },
+          {
+            "name": "severity",
+            "dataType": "string",
+            "sourceColumn": "severity",
+            "lineageTag": "0b5963fd-d687-49d3-994d-0c6f023f6905",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "anomaly_method",
+            "dataType": "string",
+            "sourceColumn": "anomaly_method",
+            "lineageTag": "e1eb3e89-c8ea-452e-80e4-48850929290e",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "reason",
+            "dataType": "string",
+            "sourceColumn": "reason",
+            "lineageTag": "e4b52bca-56b4-466c-a19b-ca985c53de55",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "recommended_action",
+            "dataType": "string",
+            "sourceColumn": "recommended_action",
+            "lineageTag": "a19a1579-716c-4d63-8cc6-4825cd888010",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "PowerBI_Anomaly_Report",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(\"C:/Users/Kruthika/OneDrive/Desktop/Campus Energy Consumption Monitoring and Analytics Dashboard/powerbi/data/PowerBI_Anomaly_Report.csv\"), [Delimiter=\",\", Columns=15, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\", {",
+                "        {\"anomaly_id\", type text},",
+                "        {\"timestamp\", type datetime},",
+                "        {\"date_key\", Int64.Type},",
+                "        {\"time_key\", Int64.Type},",
+                "        {\"building_id\", type text},",
+                "        {\"building_name\", type text},",
+                "        {\"recorded_kwh\", type number},",
+                "        {\"expected_kwh\", type number},",
+                "        {\"deviation_kwh\", type number},",
+                "        {\"deviation_pct\", type number},",
+                "        {\"peak_kw\", type number},",
+                "        {\"severity\", type text},",
+                "        {\"anomaly_method\", type text},",
+                "        {\"reason\", type text},",
+                "        {\"recommended_action\", type text}",
+                "    })",
+                "in",
+                "    #\"Changed Type\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "_KeyMeasures",
+        "lineageTag": "6fc2cd17-56d6-42c7-be8e-3420463113e2",
+        "columns": [
+          {
+            "name": "RowIndex",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "RowIndex",
+            "lineageTag": "0f83c032-75ae-4543-b324-063ef24931a7"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "_KeyMeasures",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #table(type table [RowIndex = Int64.Type], {{1}})",
+                "in",
+                "    Source"
+              ]
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "Total Energy Consumption (kWh)",
+            "expression": "SUM ( FactEnergyConsumption[units_kwh] )",
+            "formatString": "#,##0.0 \"kWh\"",
+            "displayFolder": "01. Core Consumption Metrics",
+            "lineageTag": "d90cd3ef-6fa8-49af-a35f-86bd0046662e"
+          },
+          {
+            "name": "Total Energy Consumption (MWh)",
+            "expression": "DIVIDE ( [Total Energy Consumption (kWh)], 1000, 0 )",
+            "formatString": "#,##0.00 \"MWh\"",
+            "displayFolder": "01. Core Consumption Metrics",
+            "lineageTag": "23a34c53-e710-416c-9384-2629661c1322"
+          },
+          {
+            "name": "Average Energy Consumption (kWh)",
+            "expression": "AVERAGE ( FactEnergyConsumption[units_kwh] )",
+            "formatString": "#,##0.00 \"kWh\"",
+            "displayFolder": "01. Core Consumption Metrics",
+            "lineageTag": "fea467c2-838b-424c-832c-e2a9826ccabb"
+          },
+          {
+            "name": "Maximum Energy Consumption",
+            "expression": "MAX ( FactEnergyConsumption[units_kwh] )",
+            "formatString": "#,##0.00 \"kWh\"",
+            "displayFolder": "01. Core Consumption Metrics",
+            "lineageTag": "571b66e1-44a6-4fac-9f99-42310e4d8304"
+          },
+          {
+            "name": "Minimum Energy Consumption",
+            "expression": "MIN ( FactEnergyConsumption[units_kwh] )",
+            "formatString": "#,##0.00 \"kWh\"",
+            "displayFolder": "01. Core Consumption Metrics",
+            "lineageTag": "a228c19c-1ca1-4f47-afc6-4df49153b4f5"
+          },
+          {
+            "name": "Peak Demand (kW)",
+            "expression": "MAX ( FactEnergyConsumption[peak_kw] )",
+            "formatString": "#,##0.0 \"kW\"",
+            "displayFolder": "01. Core Consumption Metrics",
+            "lineageTag": "cd2bfa54-18c9-410d-907c-45ddd31c2d68"
+          },
+          {
+            "name": "Average Daily Consumption",
+            "expression": "DIVIDE ( [Total Energy Consumption (kWh)], DISTINCTCOUNT ( DimDate[date] ), 0 )",
+            "formatString": "#,##0.0 \"kWh/day\"",
+            "displayFolder": "01. Core Consumption Metrics",
+            "lineageTag": "5b9df98c-aeff-4114-8b20-c08c2f790c73"
+          },
+          {
+            "name": "Energy per Occupant (kWh/person)",
+            "expression": "DIVIDE ( [Total Energy Consumption (kWh)], SUM ( FactEnergyConsumption[occupancy] ), 0 )",
+            "formatString": "#,##0.000 \"kWh/person\"",
+            "displayFolder": "01. Core Consumption Metrics",
+            "lineageTag": "f2adf856-b96b-468c-9ff1-fd62b90281d7"
+          },
+          {
+            "name": "Energy Cost (INR Lakhs)",
+            "expression": "DIVIDE ( [Total Energy Consumption (kWh)] * 8.00, 100000, 0 )",
+            "formatString": "\"\u20b9\"#,##0.00 \"Lakhs\"",
+            "displayFolder": "01. Core Consumption Metrics",
+            "lineageTag": "29ed16fd-bf67-44e5-b6b0-f516e7b67a9d"
+          },
+          {
+            "name": "Total Carbon Emissions (Tonnes)",
+            "expression": "DIVIDE ( [Total Energy Consumption (kWh)] * 0.82, 1000, 0 )",
+            "formatString": "#,##0.00 \"tCO2e\"",
+            "displayFolder": "01. Core Consumption Metrics",
+            "lineageTag": "046217fc-ac35-4bb4-bd74-79d959067747"
+          },
+          {
+            "name": "Active Facility Count",
+            "expression": "DISTINCTCOUNT ( DimBuilding[building_id] )",
+            "formatString": "#,##0",
+            "displayFolder": "01. Core Consumption Metrics",
+            "lineageTag": "a07f560e-6d1c-4e4c-ba9f-a8ee439e820f"
+          },
+          {
+            "name": "Total Telemetry Records",
+            "expression": "COUNTROWS ( FactEnergyConsumption )",
+            "formatString": "#,##0",
+            "displayFolder": "01. Core Consumption Metrics",
+            "lineageTag": "51c5e083-750b-493d-aafe-de3efac6a67b"
+          },
+          {
+            "name": "Energy 7D Moving Avg",
+            "expression": "AVERAGEX ( DATESINPERIOD ( DimDate[date], LASTDATE ( DimDate[date] ), -7, DAY ), [Total Energy Consumption (kWh)] )",
+            "formatString": "#,##0.0 \"kWh\"",
+            "displayFolder": "02. Time Intelligence & Trends",
+            "lineageTag": "4fe28a3d-3bab-4b33-a607-4b8881cf54a3"
+          },
+          {
+            "name": "Energy Previous Month (kWh)",
+            "expression": "CALCULATE ( [Total Energy Consumption (kWh)], PREVIOUSMONTH ( DimDate[date] ) )",
+            "formatString": "#,##0.0 \"kWh\"",
+            "displayFolder": "02. Time Intelligence & Trends",
+            "lineageTag": "26f32fa2-2a42-4369-9ee3-ef2a44910081"
+          },
+          {
+            "name": "Energy MoM Change (kWh)",
+            "expression": "VAR CurrentMonth = [Total Energy Consumption (kWh)] VAR PrevMonth = [Energy Previous Month (kWh)] RETURN IF ( NOT ISBLANK ( PrevMonth ), CurrentMonth - PrevMonth, BLANK () )",
+            "formatString": "#,##0.0 \"kWh\"",
+            "displayFolder": "02. Time Intelligence & Trends",
+            "lineageTag": "05ef9a1f-93e7-49d1-8226-bcb7cf7e141a"
+          },
+          {
+            "name": "Energy MoM Change %",
+            "expression": "VAR PrevMonth = [Energy Previous Month (kWh)] RETURN IF ( NOT ISBLANK ( PrevMonth ) && PrevMonth <> 0, DIVIDE ( [Energy MoM Change (kWh)], PrevMonth, 0 ), BLANK () )",
+            "formatString": "0.0%",
+            "displayFolder": "02. Time Intelligence & Trends",
+            "lineageTag": "7ff0ee98-4147-4026-acc0-3b6d6c25bbfe"
+          },
+          {
+            "name": "Weekday Consumption (kWh)",
+            "expression": "CALCULATE ( [Total Energy Consumption (kWh)], DimDate[is_weekend] = \"No\" )",
+            "formatString": "#,##0.0 \"kWh\"",
+            "displayFolder": "02. Time Intelligence & Trends",
+            "lineageTag": "bd00aa8d-81b4-4e54-9c2e-ccbcfb47ebd3"
+          },
+          {
+            "name": "Weekend Consumption (kWh)",
+            "expression": "CALCULATE ( [Total Energy Consumption (kWh)], DimDate[is_weekend] = \"Yes\" )",
+            "formatString": "#,##0.0 \"kWh\"",
+            "displayFolder": "02. Time Intelligence & Trends",
+            "lineageTag": "22e1409f-2e4f-4bab-8f2e-a65d20b4bb61"
+          },
+          {
+            "name": "Weekend Load Drop %",
+            "expression": "VAR WeekdayAvg = CALCULATE ( AVERAGE ( FactEnergyConsumption[units_kwh] ), DimDate[is_weekend] = \"No\" ) VAR WeekendAvg = CALCULATE ( AVERAGE ( FactEnergyConsumption[units_kwh] ), DimDate[is_weekend] = \"Yes\" ) RETURN DIVIDE ( WeekdayAvg - WeekendAvg, WeekdayAvg, 0 )",
+            "formatString": "0.0%",
+            "displayFolder": "02. Time Intelligence & Trends",
+            "lineageTag": "7fbd1649-e14d-4d48-9b9c-0cd5bdf8b508"
+          },
+          {
+            "name": "Building Energy Share %",
+            "expression": "DIVIDE ( [Total Energy Consumption (kWh)], CALCULATE ( [Total Energy Consumption (kWh)], ALLSELECTED ( DimBuilding ) ), 0 )",
+            "formatString": "0.0%",
+            "displayFolder": "03. Building Benchmarking & Rankings",
+            "lineageTag": "1052ada9-5fa1-4e6e-8637-e6c950d51cb1"
+          },
+          {
+            "name": "Building Rank by Energy",
+            "expression": "RANKX ( ALLSELECTED ( DimBuilding[building_name] ), [Total Energy Consumption (kWh)], , DESC, Dense )",
+            "formatString": "0",
+            "displayFolder": "03. Building Benchmarking & Rankings",
+            "lineageTag": "f6829729-fdce-4d96-afbd-37ada39374ae"
+          },
+          {
+            "name": "Building Color Highlight",
+            "expression": "VAR MaxVal = MAXX ( ALLSELECTED ( DimBuilding[building_name] ), [Total Energy Consumption (kWh)] ) RETURN IF ( [Total Energy Consumption (kWh)] = MaxVal, \"#F59E0B\", \"#10B981\" )",
+            "displayFolder": "03. Building Benchmarking & Rankings",
+            "lineageTag": "a32d8ff4-44bd-4410-8b7d-75e3d810094d"
+          },
+          {
+            "name": "Total Anomalies Count",
+            "expression": "COUNTROWS ( PowerBI_Anomaly_Report )",
+            "formatString": "#,##0",
+            "displayFolder": "04. Diagnostics & Anomaly Metrics",
+            "lineageTag": "55107954-97df-4cb9-ba51-74ac22f9abad"
+          },
+          {
+            "name": "Critical Anomalies Count",
+            "expression": "CALCULATE ( COUNTROWS ( PowerBI_Anomaly_Report ), PowerBI_Anomaly_Report[severity] = \"Critical\" ) + 0",
+            "formatString": "#,##0",
+            "displayFolder": "04. Diagnostics & Anomaly Metrics",
+            "lineageTag": "19001543-c75c-44d4-b6ac-3641a90ceb18"
+          },
+          {
+            "name": "High Severity Anomalies Count",
+            "expression": "CALCULATE ( COUNTROWS ( PowerBI_Anomaly_Report ), PowerBI_Anomaly_Report[severity] = \"High\" ) + 0",
+            "formatString": "#,##0",
+            "displayFolder": "04. Diagnostics & Anomaly Metrics",
+            "lineageTag": "f7a0b68a-e3f3-405c-b9aa-3905c1a08f9b"
+          },
+          {
+            "name": "Medium Severity Anomalies Count",
+            "expression": "CALCULATE ( COUNTROWS ( PowerBI_Anomaly_Report ), PowerBI_Anomaly_Report[severity] = \"Medium\" ) + 0",
+            "formatString": "#,##0",
+            "displayFolder": "04. Diagnostics & Anomaly Metrics",
+            "lineageTag": "0a1cd5bc-b7b7-434b-9b65-763fcc67d3be"
+          },
+          {
+            "name": "Severity Badge Color",
+            "expression": "SWITCH ( SELECTEDVALUE ( PowerBI_Anomaly_Report[severity] ), \"Critical\", \"#EF4444\", \"High\", \"#F59E0B\", \"Medium\", \"#3B82F6\", \"#64748B\" )",
+            "displayFolder": "04. Diagnostics & Anomaly Metrics",
+            "lineageTag": "40399fb9-be7d-4092-99ca-3ed85ba12945"
+          },
+          {
+            "name": "Dynamic Building Title",
+            "expression": "IF ( ISFILTERED ( DimBuilding[building_name] ), \"Energy Analytics: \" & SELECTEDVALUE ( DimBuilding[building_name] ), \"Campus-Wide Facility Performance Overview\" )",
+            "displayFolder": "05. Dynamic Visual Titles & Formatting",
+            "lineageTag": "e3ed98ef-cc24-4872-a974-4c1901576af6"
+          },
+          {
+            "name": "Selected Date Range Label",
+            "expression": "\"Telemetry Window: \" & FORMAT ( MIN ( DimDate[date] ), \"dd MMM yyyy\" ) & \" to \" & FORMAT ( MAX ( DimDate[date] ), \"dd MMM yyyy\" )",
+            "displayFolder": "05. Dynamic Visual Titles & Formatting",
+            "lineageTag": "961d6463-ddec-4ca8-8f84-e86900bc28bc"
+          },
+          {
+            "name": "Total Potential Savings (kWh)",
+            "expression": "185000",
+            "formatString": "#,##0 \"kWh\"",
+            "displayFolder": "05. Dynamic Visual Titles & Formatting",
+            "lineageTag": "09a931e3-0ea2-4bc3-8349-849899f3c9fe"
+          },
+          {
+            "name": "Total Potential Cost Savings (INR)",
+            "expression": "[Total Potential Savings (kWh)] * 8.00",
+            "formatString": "\"\u20b9\"#,##0.00",
+            "displayFolder": "05. Dynamic Visual Titles & Formatting",
+            "lineageTag": "5c59124d-c59b-4ddf-b6e1-934bfc6de494"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "Fact_Building",
+        "fromTable": "FactEnergyConsumption",
+        "fromColumn": "building_id",
+        "toTable": "DimBuilding",
+        "toColumn": "building_id",
+        "crossFilteringBehavior": "oneDirection",
+        "securityFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "Fact_Date",
+        "fromTable": "FactEnergyConsumption",
+        "fromColumn": "date_key",
+        "toTable": "DimDate",
+        "toColumn": "date_key",
+        "crossFilteringBehavior": "oneDirection",
+        "securityFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "Fact_Time",
+        "fromTable": "FactEnergyConsumption",
+        "fromColumn": "time_key",
+        "toTable": "DimTime",
+        "toColumn": "time_key",
+        "crossFilteringBehavior": "oneDirection",
+        "securityFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "Fact_Source",
+        "fromTable": "FactEnergyConsumption",
+        "fromColumn": "source_id",
+        "toTable": "DimEnergySource",
+        "toColumn": "source_id",
+        "crossFilteringBehavior": "oneDirection",
+        "securityFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "Anomaly_Building",
+        "fromTable": "PowerBI_Anomaly_Report",
+        "fromColumn": "building_id",
+        "toTable": "DimBuilding",
+        "toColumn": "building_id",
+        "crossFilteringBehavior": "oneDirection",
+        "securityFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "Anomaly_Date",
+        "fromTable": "PowerBI_Anomaly_Report",
+        "fromColumn": "date_key",
+        "toTable": "DimDate",
+        "toColumn": "date_key",
+        "crossFilteringBehavior": "oneDirection",
+        "securityFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "Anomaly_Time",
+        "fromTable": "PowerBI_Anomaly_Report",
+        "fromColumn": "time_key",
+        "toTable": "DimTime",
+        "toColumn": "time_key",
+        "crossFilteringBehavior": "oneDirection",
+        "securityFilteringBehavior": "oneDirection"
+      }
+    ],
+    "annotations": [
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"DimBuilding\",\"DimDate\",\"DimTime\",\"DimEnergySource\",\"FactEnergyConsumption\",\"PowerBI_Anomaly_Report\",\"_KeyMeasures\"]"
+      },
+      {
+        "name": "__PBI_TimeIntelligenceEnabled",
+        "value": "1"
+      }
+    ]
+  }
+}

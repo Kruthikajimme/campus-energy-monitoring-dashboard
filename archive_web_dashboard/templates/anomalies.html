@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% block title %}Anomaly Detection - Campus Energy Monitoring{% endblock %}
+{% block page_title %}Energy Anomaly Alerts & Diagnostic Center{% endblock %}
+{% block page_subtitle %}Automated detection of statistical deviations, sudden load surges, and off-hours baseload drifts{% endblock %}
+
+{% block content %}
+
+<!-- Engineering Disclaimer Notice -->
+<div class="alert alert-info border-0 shadow-sm d-flex align-items-center gap-3 mb-4">
+  <i class="bi bi-info-circle-fill fs-3 text-info"></i>
+  <div>
+    <strong>Statistical Anomaly Advisory:</strong>
+    The readings listed below represent statistical outliers detected via Interquartile Range (IQR) and rolling Z-score baselines. They are flags indicating unusual operational behavior or telemetry noise that warrant engineering investigation, rather than confirmed physical equipment failures.
+  </div>
+</div>
+
+<!-- Anomaly Summary Metric Cards -->
+<div class="row g-3 mb-4">
+  <div class="col-xl-3 col-md-6">
+    <div class="card p-3 border-start border-4 border-danger">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <span class="small text-muted text-uppercase fw-bold">Critical Severity</span>
+          <h3 class="mb-0 fw-bold text-danger">{{ summary.by_severity.Critical }}</h3>
+        </div>
+        <div class="p-2 bg-danger-subtle rounded text-danger"><i class="bi bi-exclamation-octagon fs-4"></i></div>
+      </div>
+      <small class="text-muted mt-2 d-block">>3.5x IQR threshold / Severe surge</small>
+    </div>
+  </div>
+
+  <div class="col-xl-3 col-md-6">
+    <div class="card p-3 border-start border-4 border-warning">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <span class="small text-muted text-uppercase fw-bold">High Severity</span>
+          <h3 class="mb-0 fw-bold text-warning">{{ summary.by_severity.High }}</h3>
+        </div>
+        <div class="p-2 bg-warning-subtle rounded text-warning"><i class="bi bi-exclamation-triangle fs-4"></i></div>
+      </div>
+      <small class="text-muted mt-2 d-block">>2.5x IQR or major off-hours load</small>
+    </div>
+  </div>
+
+  <div class="col-xl-3 col-md-6">
+    <div class="card p-3 border-start border-4 border-primary">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <span class="small text-muted text-uppercase fw-bold">Medium Severity</span>
+          <h3 class="mb-0 fw-bold text-primary">{{ summary.by_severity.Medium }}</h3>
+        </div>
+        <div class="p-2 bg-primary-subtle rounded text-primary"><i class="bi bi-bell fs-4"></i></div>
+      </div>
+      <small class="text-muted mt-2 d-block">Sudden rolling surge or transient demand</small>
+    </div>
+  </div>
+
+  <div class="col-xl-3 col-md-6">
+    <div class="card p-3 border-start border-4 border-secondary">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <span class="small text-muted text-uppercase fw-bold">Total Flagged Events</span>
+          <h3 class="mb-0 fw-bold text-dark">{{ summary.total }}</h3>
+        </div>
+        <div class="p-2 bg-light rounded text-secondary"><i class="bi bi-clipboard2-data fs-4"></i></div>
+      </div>
+      <small class="text-muted mt-2 d-block">Out of full 90-day dataset</small>
+    </div>
+  </div>
+</div>
+
+<!-- Interactive Anomaly Alerts Table -->
+<div class="card mb-4">
+  <div class="card-header-clean">
+    <div>
+      <h3><i class="bi bi-lightning-charge-fill text-danger"></i> Anomaly Alerts & Recommended Actions</h3>
+      <span class="card-subtitle">Real-time log of detected consumption deviations across campus buildings</span>
+    </div>
+    <div>
+      <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#demoModal">
+        <i class="bi bi-plus-circle"></i> Inject Test Surge
+      </button>
+    </div>
+  </div>
+  
+  <div class="table-responsive">
+    <table class="custom-table table-hover">
+      <thead>
+        <tr>
+          <th>Timestamp</th>
+          <th>Facility</th>
+          <th class="text-end">Recorded Load</th>
+          <th class="text-end">Expected Baseline</th>
+          <th class="text-center">Severity</th>
+          <th class="text-end">Deviation</th>
+          <th>Anomaly Reason</th>
+          <th>Technician Recommended Action</th>
+        </tr>
+      </thead>
+      <tbody id="anomaliesTableBody">
+        {% if anomalies and anomalies|length > 0 %}
+          {% for a in anomalies[:250] %}
+          <tr>
+            <td><code>{{ a.timestamp }}</code></td>
+            <td><strong>{{ a.building }}</strong></td>
+            <td class="text-end text-danger fw-bold">{{ a.recorded_kwh }} kWh</td>
+            <td class="text-end text-muted">{{ a.expected_kwh }} kWh</td>
+            <td class="text-center">
+              {% if a.severity == 'Critical' %}
+                <span class="badge badge-sev-critical">Critical</span>
+              {% elif a.severity == 'High' %}
+                <span class="badge badge-sev-high">High</span>
+              {% elif a.severity == 'Medium' %}
+                <span class="badge badge-sev-medium">Medium</span>
+              {% else %}
+                <span class="badge badge-sev-low">Low</span>
+              {% endif %}
+            </td>
+            <td class="text-end text-danger small fw-semibold">+{{ a.deviation_pct }}%</td>
+            <td><small>{{ a.reason }}</small></td>
+            <td><small class="text-secondary">{{ a.action_recommendation }}</small></td>
+          </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan="8" class="text-center py-4 text-muted">No anomalies detected in the current dataset.</td>
+          </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Statistical Methodology Explanation -->
+<div class="card p-4">
+  <h4 class="fs-6 fw-bold text-navy text-uppercase mb-3">Anomaly Detection Methodology & Mathematical Models</h4>
+  <div class="row g-3">
+    <div class="col-md-4">
+      <h6 class="fw-bold text-dark"><i class="bi bi-calculator text-primary me-1"></i> Interquartile Range (IQR)</h6>
+      <p class="small text-muted mb-0">
+        Calculates $Q_1$ (25th percentile) and $Q_3$ (75th percentile) for each facility. Outliers are identified when:
+        $$\text{Reading} > Q_3 + (k \times \text{IQR})$$
+        where $k = 1.8$ for moderate, $k = 2.5$ for high, and $k = 3.5$ for critical severity.
+      </p>
+    </div>
+    <div class="col-md-4">
+      <h6 class="fw-bold text-dark"><i class="bi bi-activity text-danger me-1"></i> Rolling Window Z-Score</h6>
+      <p class="small text-muted mb-0">
+        Tracks a trailing 6-hour moving mean $\mu_{6h}$ and standard deviation $\sigma_{6h}$. Detects localized sudden surges where consumption jumps >75% above recent baselines, isolating machinery turn-ons.
+      </p>
+    </div>
+    <div class="col-md-4">
+      <h6 class="fw-bold text-dark"><i class="bi bi-moon-stars text-warning me-1"></i> Off-Hours Baseline Rules</h6>
+      <p class="small text-muted mb-0">
+        Audits non-residential blocks (Academic, Computer Science, Canteen, Labs) between 01:00 and 05:00 AM. Any reading exceeding 135% of the annual median triggers an off-hours energy leakage alert.
+      </p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+

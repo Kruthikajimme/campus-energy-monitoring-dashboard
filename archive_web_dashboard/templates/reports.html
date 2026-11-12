@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block title %}Reports & Downloads - Campus Energy Monitoring{% endblock %}
+{% block page_title %}Executive Energy Reports & Repository Downloads{% endblock %}
+{% block page_subtitle %}One-click export of multi-sheet styled Microsoft Excel workbooks, raw CSV pools, and quality audit logs{% endblock %}
+
+{% block content %}
+
+<!-- Hero Download Card -->
+<div class="card p-4 mb-4 border-0 shadow" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #fff;">
+  <div class="row align-items-center">
+    <div class="col-lg-8">
+      <span class="badge bg-success text-white mb-2 px-3 py-1 fw-bold">
+        <i class="bi bi-file-earmark-spreadsheet-fill"></i> OPENPYXL GENERATED WORKBOOK
+      </span>
+      <h3 class="display-6 fw-bold mb-2">Campus Energy Comprehensive Audit Report (.xlsx)</h3>
+      <p class="text-light opacity-75 mb-3" style="max-width: 650px;">
+        Formatted multi-sheet Microsoft Excel document containing executive KPIs, facility comparison tables with embedded bar charts, monthly cross-tabulations, detailed anomaly investigation logs, and full clean telemetry.
+      </p>
+      <div class="d-flex flex-wrap gap-2">
+        <a href="{{ url_for('download_excel_report') }}" class="btn btn-primary-emerald btn-lg px-4 shadow">
+          <i class="bi bi-download me-2"></i> Download Full Excel Report (.xlsx)
+        </a>
+      </div>
+    </div>
+    <div class="col-lg-4 text-center mt-3 mt-lg-0">
+      <div class="p-3 bg-white bg-opacity-10 rounded border border-light border-opacity-25 text-start">
+        <small class="text-uppercase text-light opacity-75 fw-bold d-block mb-2">Report Content Scope</small>
+        <ul class="list-unstyled small mb-0 text-light opacity-90">
+          <li class="mb-1"><i class="bi bi-check2-circle text-success me-1"></i> Sheet 1: Executive KPI Summary</li>
+          <li class="mb-1"><i class="bi bi-check2-circle text-success me-1"></i> Sheet 2: Building Analysis + Bar Chart</li>
+          <li class="mb-1"><i class="bi bi-check2-circle text-success me-1"></i> Sheet 3: Monthly Matrix Breakdown</li>
+          <li class="mb-1"><i class="bi bi-check2-circle text-success me-1"></i> Sheet 4: Anomaly Log & Actions</li>
+          <li><i class="bi bi-check2-circle text-success me-1"></i> Sheet 5: Complete Cleaned Dataset</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Workbook Sheets Architecture Breakdown -->
+<div class="card mb-4">
+  <div class="card-header-clean">
+    <div>
+      <h3><i class="bi bi-layers-half text-primary"></i> Workbook Architecture & Sheet Descriptions</h3>
+      <span class="card-subtitle">Details on calculations and formats included in each generated spreadsheet tab</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row g-3">
+      <!-- Sheet 1 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="p-3 border rounded h-100 bg-light">
+          <span class="badge bg-navy text-white mb-2">Sheet 1</span>
+          <h5 class="fs-6 fw-bold text-dark mb-1">Executive Summary</h5>
+          <p class="small text-muted mb-0">
+            High-level campus metrics: Total consumption ({{ kpis.total_consumption_kwh }} kWh), peak demand ({{ kpis.peak_demand_kw }} kW), daily average ({{ kpis.avg_daily_consumption_kwh }} kWh/d), total records, and primary observations.
+          </p>
+        </div>
+      </div>
+
+      <!-- Sheet 2 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="p-3 border rounded h-100 bg-light">
+          <span class="badge bg-navy text-white mb-2">Sheet 2</span>
+          <h5 class="fs-6 fw-bold text-dark mb-1">Building Analysis</h5>
+          <p class="small text-muted mb-0">
+            Benchmarking table for all 7 structures with total kWh, % load share, average hourly, max hourly, peak kW, and embedded OpenPyXL native Bar Chart.
+          </p>
+        </div>
+      </div>
+
+      <!-- Sheet 3 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="p-3 border rounded h-100 bg-light">
+          <span class="badge bg-navy text-white mb-2">Sheet 3</span>
+          <h5 class="fs-6 fw-bold text-dark mb-1">Monthly Analysis</h5>
+          <p class="small text-muted mb-0">
+            Cross-tabulated pivot matrix displaying monthly energy trends across facilities with column totals, highlighting seasonal shifts.
+          </p>
+        </div>
+      </div>
+
+      <!-- Sheet 4 -->
+      <div class="col-md-6 col-lg-6">
+        <div class="p-3 border rounded h-100 bg-light">
+          <span class="badge bg-navy text-white mb-2">Sheet 4</span>
+          <h5 class="fs-6 fw-bold text-dark mb-1">Anomaly Report</h5>
+          <p class="small text-muted mb-0">
+            Color-coded log of statistical outliers detailing timestamp, building name, recorded vs expected load, deviation percentage, severity classification, and specific engineering action recommendations.
+          </p>
+        </div>
+      </div>
+
+      <!-- Sheet 5 -->
+      <div class="col-md-12 col-lg-6">
+        <div class="p-3 border rounded h-100 bg-light">
+          <span class="badge bg-navy text-white mb-2">Sheet 5</span>
+          <h5 class="fs-6 fw-bold text-dark mb-1">Cleaned Dataset</h5>
+          <p class="small text-muted mb-0">
+            Complete normalized records with calibrated voltage, meter identifiers, environmental temperatures, occupancy headcounts, and power source provenance.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Secondary Downloads Row -->
+<div class="row g-4">
+  <div class="col-md-4">
+    <div class="card p-3 h-100">
+      <h5 class="fs-6 fw-bold mb-1"><i class="bi bi-filetype-csv text-success me-1"></i> Cleaned Telemetry CSV</h5>
+      <p class="small text-muted mb-3">Audited dataset ready for Jupyter notebooks or statistical modeling.</p>
+      <a href="{{ url_for('download_cleaned_csv') }}" class="btn btn-outline-success btn-sm mt-auto">
+        <i class="bi bi-download"></i> Download Cleaned CSV
+      </a>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card p-3 h-100">
+      <h5 class="fs-6 fw-bold mb-1"><i class="bi bi-filetype-csv text-secondary me-1"></i> Raw Simulated CSV</h5>
+      <p class="small text-muted mb-3">Noisy synthetic records before cleaning and imputation.</p>
+      <a href="{{ url_for('download_raw_csv') }}" class="btn btn-outline-secondary btn-sm mt-auto">
+        <i class="bi bi-download"></i> Download Raw CSV
+      </a>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card p-3 h-100">
+      <h5 class="fs-6 fw-bold mb-1"><i class="bi bi-filetype-json text-warning me-1"></i> Quality Audit JSON</h5>
+      <p class="small text-muted mb-3">Structured log of duplicate removals, negative fixes, and IQR decisions.</p>
+      <a href="{{ url_for('download_cleaning_report') }}" class="btn btn-outline-warning btn-sm mt-auto">
+        <i class="bi bi-download"></i> Download Audit Report (JSON)
+      </a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+

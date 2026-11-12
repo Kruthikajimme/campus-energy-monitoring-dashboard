@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+
+{% block title %}Insights & Recommendations - Campus Energy Monitoring{% endblock %}
+{% block page_title %}Automated Energy Intelligence & Recommendations{% endblock %}
+{% block page_subtitle %}Data-driven findings, peak demand analysis, facility rankings, and actionable energy conservation proposals{% endblock %}
+
+{% block content %}
+
+<!-- Advisory Disclaimer -->
+<div class="alert alert-light border border-secondary-subtle d-flex align-items-center gap-3 mb-4 shadow-sm">
+  <i class="bi bi-lightbulb-fill text-warning fs-3"></i>
+  <div>
+    <strong>Advisory Note:</strong>
+    These automated insights and optimization measures are calculated dynamically from active telemetry patterns. They are engineering suggestions for facility administration to consider alongside campus maintenance schedules, not guaranteed contractual utility savings.
+  </div>
+</div>
+
+<!-- Highlight Metrics Cards -->
+<div class="row g-3 mb-4">
+  <div class="col-xl-3 col-md-6">
+    <div class="card p-3 border-start border-4 border-warning">
+      <span class="small text-muted text-uppercase fw-bold">Highest Consumer</span>
+      <h4 class="mt-1 mb-0 fw-bold text-dark">{{ insights.key_metrics.highest_building }}</h4>
+      <small class="text-warning fw-semibold">{{ insights.key_metrics.highest_pct }}% of Campus Load ({{ "{:,.0f}".format(insights.key_metrics.highest_kwh) }} kWh)</small>
+    </div>
+  </div>
+
+  <div class="col-xl-3 col-md-6">
+    <div class="card p-3 border-start border-4 border-success">
+      <span class="small text-muted text-uppercase fw-bold">Most Economical Facility</span>
+      <h4 class="mt-1 mb-0 fw-bold text-dark">{{ insights.key_metrics.lowest_building }}</h4>
+      <small class="text-success fw-semibold">{{ insights.key_metrics.lowest_pct }}% Load ({{ "{:,.0f}".format(insights.key_metrics.lowest_kwh) }} kWh)</small>
+    </div>
+  </div>
+
+  <div class="col-xl-3 col-md-6">
+    <div class="card p-3 border-start border-4 border-primary">
+      <span class="small text-muted text-uppercase fw-bold">Peak Demand Window</span>
+      <h4 class="mt-1 mb-0 fw-bold text-dark">{{ insights.key_metrics.peak_window }}</h4>
+      <small class="text-primary fw-semibold">Peak hour at {{ insights.key_metrics.peak_hour }} ({{ insights.key_metrics.peak_hour_val }} kWh avg)</small>
+    </div>
+  </div>
+
+  <div class="col-xl-3 col-md-6">
+    <div class="card p-3 border-start border-4 border-danger">
+      <span class="small text-muted text-uppercase fw-bold">Anomaly Hotspot</span>
+      <h4 class="mt-1 mb-0 fw-bold text-dark">{{ insights.key_metrics.top_anomaly_building }}</h4>
+      <small class="text-danger fw-semibold">{{ insights.key_metrics.top_anomaly_count }} statistical deviations flagged</small>
+    </div>
+  </div>
+</div>
+
+<!-- Calculated Key Findings Section -->
+<div class="card mb-4">
+  <div class="card-header-clean">
+    <div>
+      <h3><i class="bi bi-search text-primary"></i> Calculated Empirical Findings</h3>
+      <span class="card-subtitle">Synthesized findings extracted from multi-dimensional telemetry correlations</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row g-3">
+      {% for f in insights.findings %}
+      <div class="col-md-6">
+        <div class="p-3 bg-light rounded border h-100">
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <span class="badge bg-secondary-subtle text-secondary border">{{ f.category }}</span>
+            <i class="bi bi-{{ f.icon }} text-primary fs-5"></i>
+          </div>
+          <h5 class="fs-6 fw-bold text-dark mb-1">{{ f.title }}</h5>
+          <p class="small text-muted mb-0">{{ f.summary }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<!-- Actionable Energy Conservation Recommendations -->
+<div class="card mb-4">
+  <div class="card-header-clean">
+    <div>
+      <h3><i class="bi bi-check-circle-fill text-success"></i> Actionable Energy Conservation Proposals</h3>
+      <span class="card-subtitle">Targeted energy-efficiency measures with estimated ROI and operational effort</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row g-3">
+      {% for r in insights.recommendations %}
+      <div class="col-lg-6">
+        <div class="card p-3 border h-100 shadow-none bg-white">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="badge bg-navy text-white">{{ r.id }} &bull; {{ r.category }}</span>
+            <small class="text-muted"><i class="bi bi-buildings"></i> Target: <strong>{{ r.target_facility }}</strong></small>
+          </div>
+          <h5 class="fs-6 fw-bold text-dark mb-2">{{ r.title }}</h5>
+          <p class="small text-secondary mb-2">
+            <strong>Suggested Action:</strong> {{ r.suggested_action }}
+          </p>
+          <div class="p-2 bg-light rounded small mt-auto">
+            <div class="text-success fw-semibold"><i class="bi bi-graph-down-arrow"></i> Expected Benefit: {{ r.expected_benefit }}</div>
+            <div class="text-muted mt-1"><i class="bi bi-tools"></i> Implementation Effort: {{ r.effort }}</div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<!-- Facility Efficiency & Intensity Rankings Table -->
+<div class="card">
+  <div class="card-header-clean">
+    <div>
+      <h3><i class="bi bi-award-fill text-warning"></i> Campus Facility Energy Intensity Benchmark</h3>
+      <span class="card-subtitle">Comparative ranking based on total load, hourly average, and anomaly frequency</span>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="custom-table table-hover">
+      <thead>
+        <tr>
+          <th>Facility</th>
+          <th class="text-end">Total (kWh)</th>
+          <th class="text-end">Campus Share</th>
+          <th class="text-end">Hourly Mean (kWh)</th>
+          <th class="text-end">Peak Demand (kW)</th>
+          <th class="text-center">Flagged Anomalies</th>
+          <th class="text-center">Energy Efficiency Rating</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for b in insights.building_efficiency_rankings %}
+        <tr>
+          <td><strong>{{ b.building }}</strong></td>
+          <td class="text-end">{{ "{:,.1f}".format(b.total_kwh) }}</td>
+          <td class="text-end fw-semibold">{{ b.percentage }}%</td>
+          <td class="text-end">{{ b.hourly_mean_kwh }}</td>
+          <td class="text-end text-danger fw-semibold">{{ b.peak_kw }}</td>
+          <td class="text-center">{{ b.anomalies }}</td>
+          <td class="text-center">
+            <span class="badge bg-{{ b.badge_class }}-subtle text-{{ b.badge_class }} border border-{{ b.badge_class }}-subtle">
+              {{ b.rating }}
+            </span>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}
+
